@@ -1,0 +1,92 @@
+.pregame-box{
+    /* background-color: seashell; */
+    width: 50%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 250px;
+    padding: 30px;
+    /* display: none; */
+}
+
+.pregame-box .about{
+    color: royalblue;
+    text-align: justify;
+    margin: 30px;
+}
+
+.footer{
+    /* background-color: seashell; */
+    width: 100%;
+    position: fixed;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.game-elements{
+    display: none;
+}
+
+.footer button{
+    margin: 10px;
+}
+
+.game-elements .timer{
+    font-weight: 400;
+    font-size: 100px;
+    color:lightslategray;
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    top: 15%;
+    justify-content: center;    
+}
+
+.game-elements .game-box{
+    padding: 20px;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 18%;
+    text-align: center;
+    
+}
+
+.game-elements .game-box p{
+    font-size: larger;
+    margin-top: 40px;
+}
+
+.game-elements .game-box .pick-answer{
+    width: fit-content;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.game-elements .game-box .pick-answer button{
+    margin: 10px;
+}
+
+.postgame-elements{
+    text-align: center;
+    width: 30%;
+    position: static;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 18%;
+    display: none;
+}
+
+.postgame-elements p{
+    font-weight: 500;
+    font-size: 40px;
+}
+
+.postgame-elements .score{
+    font-weight: bolder;
+    font-size: 80px;
+}
