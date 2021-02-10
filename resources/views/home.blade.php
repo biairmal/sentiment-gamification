@@ -12,20 +12,34 @@
     <!-- CSS File -->
     <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" />
 
+    <!-- JQuery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
     <title>Gamification!</title>
 
 </head>
 
 <body>
     <div class="pregame-box">
+
         <h2>Sentiment Analysis Game!</h2>
         <p class="about">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <button type="button" class="btn btn-primary">Start Game</button>
+        <div id="start-btn"><button type="button" class="btn btn-primary" onclick="startGame()">Start Game</button></div>
+
     </div>
 
     <div class="footer">
+
         <button type="button" class="btn btn-outline-secondary">Music</button>
         <button type="button" class="btn btn-outline-secondary">How to Play</button>
+
+    </div>
+
+    <div class="countdown">
+
+        <p id="countdown-timer"></p>
+
     </div>
 
     <div class="game-elements">
@@ -45,11 +59,15 @@
     </div>
 
     <div class="postgame-elements">
+
         <p>Your Score</p>
         <p class="score">20</p>
         <button type="button" class="btn btn-primary">Start Again</button>
         <button type="button" class="btn btn-light">Back to Home</button>
+
     </div>
+
+    <script type="text/javascript" src="{{ URL::asset('js/script.js') }}"></script>
 
 
 </body>

@@ -6,7 +6,18 @@
     margin-right: auto;
     margin-top: 250px;
     padding: 30px;
-    /* display: none; */
+    /* display: none; */ 
+    /* opacity: 1; */
+    pointer-events: auto;
+    /* transform: translate(-50%, -50%) scale(0.9); */
+    
+} 
+
+.pregame-box.disabled{
+    /* opacity: 0; */
+    display: none;
+    pointer-events: none;
+    /* transform: translate(-50%, -50%) scale(0.9); */
 }
 
 .pregame-box .about{
@@ -89,4 +100,16 @@
 .postgame-elements .score{
     font-weight: bolder;
     font-size: 80px;
+}
+
+.countdown{
+    font-weight: 400;
+    font-size: 200px;
+    text-align: center;
+    margin-top: 15%;
+    opacity: 0;
+}
+
+.countdown.enabled{
+    opacity: 1;
 }

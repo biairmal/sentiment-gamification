@@ -13,8 +13,29 @@
 
 //     seconds = seconds < 10 ? '0' +seconds : seconds;
 
-//     countdownEl.innerHTML= `${minutes}:${seconds}`;
+// countdownEl.innerHTML= `${minutes}:${seconds}`;
 //     time--;
 //     time = time < 0 ? "" : time; 
 // }
+let countdownTimer = 3;
+let time = countdownTimer;
+var intervalVar;
 
+function startGame() {
+
+    $(document).ready(function () {
+        $("#start-btn").click(function () {
+            $(".pregame-box").addClass("disabled")
+            $(".countdown").addClass("enabled")
+            intervalVar = setInterval(countdownOnStart, 1000); 
+        })
+    })
+}
+
+function countdownOnStart() {
+
+    const countdownEl = document.getElementById('countdown-timer');
+    countdownEl.innerHTML = `${time}`;
+    time--;
+    time = time <= 0 ? "Go!" : time;
+}
