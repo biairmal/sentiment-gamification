@@ -1,3 +1,32 @@
+let countdownTimer = 3;
+let time = countdownTimer;
+
+function startGame() {
+
+    $(document).ready(function () {
+        $("#start-btn").click(function () {
+            $(".pregame-box").addClass("disabled");
+            $(".countdown").addClass("enabled");
+            setInterval(countdownOnStart, 1000);
+            setTimeout(gameStarted, 4900);
+        })
+    })
+}
+
+function gameStarted(){
+    $(".countdown").removeClass("enabled");
+    $(".game-elements").addClass("enabled");
+    
+}
+
+function countdownOnStart() {
+
+    const countdownEl = document.getElementById('countdown-timer');
+    countdownEl.innerHTML = `${time}`;
+    time--;
+    time = time <= 0 ? "Go!" : time;
+}
+
 // const startingMinutes = 1;
 // let time = startingMinutes*60;
 
@@ -17,25 +46,3 @@
 //     time--;
 //     time = time < 0 ? "" : time; 
 // }
-let countdownTimer = 3;
-let time = countdownTimer;
-var intervalVar;
-
-function startGame() {
-
-    $(document).ready(function () {
-        $("#start-btn").click(function () {
-            $(".pregame-box").addClass("disabled")
-            $(".countdown").addClass("enabled")
-            intervalVar = setInterval(countdownOnStart, 1000); 
-        })
-    })
-}
-
-function countdownOnStart() {
-
-    const countdownEl = document.getElementById('countdown-timer');
-    countdownEl.innerHTML = `${time}`;
-    time--;
-    time = time <= 0 ? "Go!" : time;
-}

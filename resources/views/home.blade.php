@@ -44,7 +44,7 @@
 
     <div class="game-elements">
 
-        <p class="timer">01:00</p>
+        <p id="timer">01:00</p>
 
         <div class="game-box">
             <h3>Question 1</h3>
