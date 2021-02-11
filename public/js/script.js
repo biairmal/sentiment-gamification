@@ -1,18 +1,27 @@
 const countElement = document.getElementById('countdown');
-let time = 3;
+const timerElement = document.getElementById('timer');
+let defaultCountdownTime = 3;
+let defaultGameTime = 5;
+let time = defaultCountdownTime;
+let gameTime = defaultGameTime;
 
 $("#start_btn").click(clickStart);
+$("#home_btn").click(backToHome);
+$("#restart_btn").click(clickRestart);
 
 function clickStart() {
-    //remove pregame elements and insert countdown
     $(document).ready(function () {
-        // $("#start_btn").click(function () {
+        countElement.innerHTML = "";
+        timerElement.innerHTML = "";
         $(".pregame").addClass("disabled");
         $("#countdown").addClass("enabled");
         countInterval = setInterval(countdown, 1000);
-        // });
     });
+}
 
+function clickRestart(){
+    $(".postgame").removeClass("enabled");
+    clickStart();
 }
 
 function countdown() {
@@ -23,13 +32,53 @@ function countdown() {
     } else if (time <= 0) {
         text = "Go!";
         countElement.innerHTML = `${text}`;
+        time = defaultCountdownTime;
         stopCountdown();
     }
 }
 
 function stopCountdown() {
     clearInterval(countInterval);
+    gameStarted()
 }
+
+function timer() {
+    if (gameTime >= 0) {
+        timerElement.innerHTML = `${gameTime}`;
+        gameTime = gameTime;
+        gameTime--;
+    } else if (gameTime < 0) {
+        text = "";
+        timerElement.innerHTML = `${text}`;
+        stopTimer();
+        gameTime = defaultGameTime;
+    }
+}
+
+function stopTimer() {
+    clearInterval(timerInterval);
+    gameFinished();
+}
+
+function gameStarted() {
+    timerInterval = setInterval(timer, 1000);
+    setTimeout(function () {
+        $("#countdown").removeClass("enabled");
+        $(".game").addClass("enabled");
+    }, 1000);
+}
+
+function gameFinished() {
+    $(".postgame").addClass("enabled");
+    $(".game").removeClass("enabled");
+}
+
+function backToHome() {
+    $(".postgame").removeClass("enabled");
+    $(".pregame").removeClass("disabled");
+}
+
+
 
 
 

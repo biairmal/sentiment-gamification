@@ -30,9 +30,7 @@
     <div id="countdown"></div>
 
     <div class="game">
-        <div class="timer">
-            <p id="timer_text"></p>
-        </div>
+        <div id="timer"></div>
         <div class="question_number">Question 1</div>
         <div class="question">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
         <div class="answer_buttons">
@@ -46,8 +44,8 @@
         <div class="yscore">Your Score</div>
         <div class="score">30</div>
         <div class="postgame_buttons">
-            <button class="start_btn" onclick="startGame()">Play Again</button>
-            <button class="home_btn" onclick="backToHome()">Back to Home</button>
+            <button id="restart_btn">Play Again</button>
+            <button id="home_btn">Back to Home</button>
         </div>
     </div>
 

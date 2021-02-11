@@ -41,7 +41,7 @@
 .pregame .game_title,
 .game_about,
 .start_button,
-.game .timer,
+.game #timer,
 .game .question,
 .game .question_number,
 .game .anwer_buttons {
@@ -63,7 +63,7 @@
     margin-top: 70px;
 }
 
-.game .timer {
+.game #timer {
     font-size: 80px;
     font-weight: 500;
     position: absolute;
