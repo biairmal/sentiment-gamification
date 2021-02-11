@@ -24,12 +24,10 @@
     <div class="pregame">
         <div class="game_title">Sentiment Analysis Game!</div>
         <div class="game_about">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
-        <div class="start_button"><button class="start_btn" onclick="startGame()">Start Game</button></div>
+        <div class="start_button"><button id="start_btn">Start Game</button></div>
     </div>
 
-    <div class="countdown">
-        <p id="countdown_text"></p>
-    </div>
+    <div id="countdown"></div>
 
     <div class="game">
         <div class="timer">
@@ -49,7 +47,7 @@
         <div class="score">30</div>
         <div class="postgame_buttons">
             <button class="start_btn" onclick="startGame()">Play Again</button>
-            <button>Back to Home</button>
+            <button class="home_btn" onclick="backToHome()">Back to Home</button>
         </div>
     </div>
 

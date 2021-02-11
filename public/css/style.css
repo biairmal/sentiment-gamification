@@ -105,11 +105,11 @@
     display: inline-block;
 }
 
-.countdown.enabled {
+#countdown.enabled {
     display: inline-block;
 }
 
-.countdown {
+#countdown {
     font-size: 200px;
     font-weight: 500;
     position: absolute;
