@@ -1,119 +1,146 @@
-.pregame-box{
-    /* background-color: seashell; */
-    width: 50%;
+.pregame {
+    width: 1000px;
+    height: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 250px;
-    padding: 30px;
-    /* display: none;  */
-    pointer-events: auto;
-    /* transform: translate(-50%, -50%) scale(0.9); */
-    
-} 
+    /* background-color: aqua; */
+    /* display: none; */
+}
 
-.pregame-box.disabled{
-    /* opacity: 0; */
+.game {
+    width: 1000px;
+    height: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
     display: none;
-    pointer-events: none;
-    /* transform: translate(-50%, -50%) scale(0.9); */
+    /* background-color: aqua; */
 }
 
-.pregame-box .about{
-    color: royalblue;
-    text-align: justify;
-    margin: 30px;
-}
-
-.footer{
-    /* background-color: seashell; */
-    width: 100%;
-    position: fixed;
-    bottom: 20px;
-    display: flex;
-    justify-content: center;
-    
-}
-
-.game-elements{
-    position: fixed;
-    width: 100%;
-    top: 200px;
+.postgame {
+    width: 1000px;
+    height: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
     display: none;
+    /* background-color: aqua; */
 }
 
-.game-elements.enabled{
-    position: fixed;
-    width: 100%;
-    top: 200px;
+.postgame.enabled {
+    display: block;
 }
 
-
-.footer button{
-    margin: 10px;
+.pregame .game_title,
+.game_about,
+.start_button,
+.game .timer,
+.game .question,
+.game .question_number,
+.game .anwer_buttons {
+    margin: 20px;
 }
 
-.game-elements #timer{
-    font-weight: 400;
-    font-size: 100px;
-    color:lightslategray;
-    text-align: center;
-    width: 100%; 
+.pregame .game_title {
+    font-weight: bold;
+    font-size: 50px;
 }
 
-.game-elements .game-box{
-    padding: 20px;
-    width: 40%;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    
-}
-
-.game-elements .game-box p{
-    font-size: larger;
+.pregame .game_about {
+    font-weight: 500;
+    font-size: 20px;
     margin-top: 40px;
 }
 
-.game-elements .game-box .pick-answer{
-    width: fit-content;
-    margin-top: 40px;
-    margin-left: auto;
-    margin-right: auto;
+.pregame .start_button {
+    margin-top: 70px;
 }
 
-.game-elements .game-box .pick-answer button{
-    margin: 10px;
+.game .timer {
+    font-size: 80px;
+    font-weight: 500;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
-.postgame-elements{
-    text-align: center;
-    width: 30%;
-    position: static;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 18%;
+.game .question_number {
+    font-size: 30px;
+    font-weight: 500;
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+}
+
+.game .question {
+    font-size: 20px;
+    position: absolute;
+    top: 180px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.game .answer_buttons {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.pregame.disabled {
     display: none;
 }
 
-.postgame-elements p{
+.game.enabled {
+    display: inline-block;
+}
+
+.countdown.enabled {
+    display: inline-block;
+}
+
+.countdown {
+    font-size: 200px;
+    font-weight: 500;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+.postgame .yscore {
     font-weight: 500;
     font-size: 40px;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
-.postgame-elements .score{
-    font-weight: bolder;
-    font-size: 80px;
+.postgame .score {
+    font-weight: 500;
+    font-size: 60px;
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translate(-50%, 0);
+
 }
 
-.countdown{
-    font-weight: 400;
-    font-size: 200px;
-    text-align: center;
-    margin-top: 15%;
-    opacity: 0;
-}
-
-.countdown.enabled{
-    opacity: 1;
+.postgame .postgame_buttons {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
 }

@@ -21,55 +21,39 @@
 </head>
 
 <body>
-    <div class="pregame-box">
-
-        <h2>Sentiment Analysis Game!</h2>
-        <p class="about">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <div id="start-btn"><button type="button" class="btn btn-primary" onclick="startGame()">Start Game</button></div>
-
-    </div>
-
-    <div class="footer">
-
-        <button type="button" class="btn btn-outline-secondary">Music</button>
-        <button type="button" class="btn btn-outline-secondary">How to Play</button>
-
+    <div class="pregame">
+        <div class="game_title">Sentiment Analysis Game!</div>
+        <div class="game_about">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
+        <div class="start_button"><button class="start_btn" onclick="startGame()">Start Game</button></div>
     </div>
 
     <div class="countdown">
-
-        <p id="countdown-timer"></p>
-
+        <p id="countdown_text"></p>
     </div>
 
-    <div class="game-elements">
-
-        <p id="timer">01:00</p>
-
-        <div class="game-box">
-            <h3>Question 1</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <div class="pick-answer">
-                <button type="button" class="btn btn-success">Positive</button>
-                <button type="button" class="btn btn-light">Neutral</button>
-                <button type="button" class="btn btn-danger">Negative</button>
-            </div>
+    <div class="game">
+        <div class="timer">
+            <p id="timer_text"></p>
         </div>
-
+        <div class="question_number">Question 1</div>
+        <div class="question">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+        <div class="answer_buttons">
+            <button>Positive</button>
+            <button>Neutral</button>
+            <button>Negative</button>
+        </div>
     </div>
 
-    <div class="postgame-elements">
-
-        <p>Your Score</p>
-        <p class="score">20</p>
-        <button type="button" class="btn btn-primary">Start Again</button>
-        <button type="button" class="btn btn-light">Back to Home</button>
-
+    <div class="postgame">
+        <div class="yscore">Your Score</div>
+        <div class="score">30</div>
+        <div class="postgame_buttons">
+            <button class="start_btn" onclick="startGame()">Play Again</button>
+            <button>Back to Home</button>
+        </div>
     </div>
 
     <script type="text/javascript" src="{{ URL::asset('js/script.js') }}"></script>
-
-
 </body>
 
 </html>
