@@ -31,18 +31,18 @@
 
     <div class="game">
         <div id="timer"></div>
-        <div class="question_number">Question 1</div>
-        <div class="question">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+        <div id="question_number"></div>
+        <div id="question"></div>
         <div class="answer_buttons">
-            <button>Positive</button>
-            <button>Neutral</button>
-            <button>Negative</button>
+            <button id="ans_positive" onclick=answerQuestion(this.id)>Positive</button>
+            <button id="ans_neutral" onclick=answerQuestion(this.id)>Neutral</button>
+            <button id="ans_negative" onclick=answerQuestion(this.id)>Negative</button>
         </div>
     </div>
 
     <div class="postgame">
         <div class="yscore">Your Score</div>
-        <div class="score">30</div>
+        <div id="score"></div>
         <div class="postgame_buttons">
             <button id="restart_btn">Play Again</button>
             <button id="home_btn">Back to Home</button>
@@ -50,13 +50,7 @@
     </div>
 
     <script type="text/javascript" src="{{ URL::asset('js/script.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/questions.js') }}"></script>
 </body>
 
 </html>
-
-<!-- 
-    gameIsRunning = false
-    onClick -> gameIsRunning = true
-    gameIsRunning true -> timer starts, getKalimat, muncul button jawaban, question counter
-    
- -->

@@ -42,8 +42,8 @@
 .game_about,
 .start_button,
 .game #timer,
-.game .question,
-.game .question_number,
+.game #question,
+.game #question_number,
 .game .anwer_buttons {
     margin: 20px;
 }
@@ -72,7 +72,7 @@
     transform: translate(-50%, 0);
 }
 
-.game .question_number {
+.game #question_number {
     font-size: 30px;
     font-weight: 500;
     position: absolute;
@@ -82,7 +82,7 @@
 
 }
 
-.game .question {
+.game #question {
     font-size: 20px;
     position: absolute;
     top: 180px;
@@ -128,7 +128,7 @@
     transform: translate(-50%, 0);
 }
 
-.postgame .score {
+.postgame #score {
     font-weight: 500;
     font-size: 60px;
     position: absolute;

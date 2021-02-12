@@ -1,13 +1,18 @@
 const countElement = document.getElementById('countdown');
 const timerElement = document.getElementById('timer');
+const scoreElement = document.getElementById('score');
+const questionNumberElement = document.getElementById('question_number');
+const questionElement = document.getElementById('question');
 let defaultCountdownTime = 3;
-let defaultGameTime = 5;
+let defaultGameTime = 10;
+let score, questionNumber;
 let time = defaultCountdownTime;
 let gameTime = defaultGameTime;
 
 $("#start_btn").click(clickStart);
 $("#home_btn").click(backToHome);
 $("#restart_btn").click(clickRestart);
+// $(".answer_buttons").click(answerQuestion);
 
 function clickStart() {
     $(document).ready(function () {
@@ -19,7 +24,7 @@ function clickStart() {
     });
 }
 
-function clickRestart(){
+function clickRestart() {
     $(".postgame").removeClass("enabled");
     clickStart();
 }
@@ -61,16 +66,20 @@ function stopTimer() {
 }
 
 function gameStarted() {
+    score = 0;
+    questionNumber = 1;
     timerInterval = setInterval(timer, 1000);
     setTimeout(function () {
         $("#countdown").removeClass("enabled");
         $(".game").addClass("enabled");
+        showQuestion();
     }, 1000);
 }
 
 function gameFinished() {
     $(".postgame").addClass("enabled");
     $(".game").removeClass("enabled");
+    scoreElement.innerHTML = `${score}`;
 }
 
 function backToHome() {
@@ -78,91 +87,39 @@ function backToHome() {
     $(".pregame").removeClass("disabled");
 }
 
+function getSentiment(question) {
+    //sentiment analysis model
+}
 
+function showQuestion() {
+    questionNumberElement.innerHTML = `Question ${questionNumber}`;
+    questionElement.innerHTML = questionsList[questionNumber];
+}
 
+function nextQuestion() {
+    questionNumber++;
+    showQuestion();
+}
 
+function answerQuestion(clicked_id) {
 
-// let countdownTime;
-// let time;
-// let gameTime;
-// let timeLeft;
+    if (clicked_id == "ans_positive") {
+        value = "positive";
+    } else if (clicked_id == "ans_neutral") {
+        value = "neutral";
+    } else if (clicked_id == "ans_negative") {
+        value = "negative";
+    }
+    // alert(value);
+    countScore(value, question);
+    nextQuestion();
 
-// function startGame() {
-//     countdownTime = 4;
-//     time = countdownTime;
-//     gameTime = 10;
-//     timeLeft = gameTime;
-//     $(document).ready(function () {
-//         $(".start_btn").click(function () {
-//             $(".pregame").addClass("disabled");
-//             $(".countdown").addClass("enabled");
+}
 
-//             // setTimeout(gameStarted, 4900);
-//         })
-//     })
-//     setInterval(countdownOnStart, 1000);
-// }
-
-// function gameStarted() {
-//     $(".countdown").removeClass("enabled");
-//     setInterval(gameTimer, 1000);
-//     setTimeout(function () {
-//         $(".game").addClass("enabled");
-//     }, 1000);
-// }
-
-// function gameFinished() {
-//     $(".game").removeClass("enabled");
-//     $(".postgame").addClass("enabled");
-// }
-
-// function backToHome() {
-//     $(document).ready(function () {
-//         $(".home_btn").click(function () {
-//             $(".postgame").removeClass("enabled");
-//             $(".pregame").removeClass("disabled");
-//         })
-//     })
-// }
-
-// function countdownOnStart() {
-
-//     const countdownEl = document.getElementById('countdown_text');
-//     countdownEl.innerHTML = `${time}`;
-//     time--;
-//     time = time <= 0 ? "Go!" : time;
-//     // if (time == "Go!") {
-//     //     gameStarted();
-//     //     // gameStarted();
-//     // }
-// }
-
-// function gameTimer() {
-//     const countdownEl = document.getElementById('timer_text');
-//     countdownEl.innerHTML = `${gameTime}`;
-//     gameTime--;
-//     gameTime = gameTime <= 0 ? "" : gameTime;
-//     if (gameTime == "") {
-//         gameFinished();
-//     }
-
-// Kodingan jalan
-// const startingMinutes = 1;
-// let time = startingMinutes*60;
-
-// const countdownEl = document.getElementById('countdown');
-
-// function startCountdown(){
-//     setInterval(updateCountdown, 1000);
-// }
-
-// function updateCountdown(){
-//     const minutes = Math.floor(time/60);
-//     let seconds = time % 60;
-
-//     seconds = seconds < 10 ? '0' +seconds : seconds;
-
-// countdownEl.innerHTML= `${minutes}:${seconds}`;
-//     time--;
-//     time = time < 0 ? "" : time; 
-// }
+function countScore(value, question) {
+    //place to count score
+    correct_ans = getSentiment(question);
+    if (value == correct_ans) {
+        score++;
+    }
+}
