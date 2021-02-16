@@ -24,7 +24,7 @@
     <div class="pregame">
         <div class="game_title">Sentiment Analysis Game!</div>
         <div class="game_about">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
-        <div class="start_button"><button id="start_btn">Start Game</button></div>
+        <div class="start_button"><button id="start_btn" class="btn btn-primary">Start Game</button></div>
     </div>
 
     <div id="countdown"></div>
@@ -34,9 +34,9 @@
         <div id="question_number"></div>
         <div id="question"></div>
         <div class="answer_buttons">
-            <button id="ans_positive" onclick=answerQuestion(this.id)>Positive</button>
-            <button id="ans_neutral" onclick=answerQuestion(this.id)>Neutral</button>
-            <button id="ans_negative" onclick=answerQuestion(this.id)>Negative</button>
+            <button id="ans_positive" onclick=answerQuestion(this.id) class="btn btn-success">Positive</button>
+            <button id="ans_neutral" onclick=answerQuestion(this.id) class="btn btn-light">Neutral</button>
+            <button id="ans_negative" onclick=answerQuestion(this.id) class="btn btn-danger">Negative</button>
         </div>
     </div>
 
@@ -44,11 +44,13 @@
         <div class="yscore">Your Score</div>
         <div id="score"></div>
         <div class="postgame_buttons">
-            <button id="restart_btn">Play Again</button>
-            <button id="home_btn">Back to Home</button>
+            <button id="restart_btn" class="btn btn-primary">Play Again</button>
+            <button id="home_btn" class="btn btn-light">Back to Home</button>
         </div>
     </div>
-
+    <!-- <script>    
+        var data = {!! json_encode($data, JSON_HEX_TAG) !!};
+    </script> -->
     <script type="text/javascript" src="{{ URL::asset('js/script.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/questions.js') }}"></script>
 </body>

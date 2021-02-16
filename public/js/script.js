@@ -4,7 +4,7 @@ const scoreElement = document.getElementById('score');
 const questionNumberElement = document.getElementById('question_number');
 const questionElement = document.getElementById('question');
 let defaultCountdownTime = 3;
-let defaultGameTime = 10;
+let defaultGameTime = 60;
 let score, questionNumber;
 let time = defaultCountdownTime;
 let gameTime = defaultGameTime;
@@ -48,8 +48,12 @@ function stopCountdown() {
 }
 
 function timer() {
+    let minutes = Math.floor(gameTime / 60);
+    let seconds = gameTime % 60;
+    // minutes = minutes < 10 ? '0' + minutes : minutes;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
     if (gameTime >= 0) {
-        timerElement.innerHTML = `${gameTime}`;
+        timerElement.innerHTML = `${minutes}:${seconds}`;
         gameTime = gameTime;
         gameTime--;
     } else if (gameTime < 0) {
@@ -93,7 +97,7 @@ function getSentiment(question) {
 
 function showQuestion() {
     questionNumberElement.innerHTML = `Question ${questionNumber}`;
-    questionElement.innerHTML = questionsList[questionNumber];
+    questionElement.innerHTML = questionsList[questionNumber - 1];
 }
 
 function nextQuestion() {
@@ -102,7 +106,6 @@ function nextQuestion() {
 }
 
 function answerQuestion(clicked_id) {
-
     if (clicked_id == "ans_positive") {
         value = "positive";
     } else if (clicked_id == "ans_neutral") {
@@ -113,7 +116,6 @@ function answerQuestion(clicked_id) {
     // alert(value);
     countScore(value, question);
     nextQuestion();
-
 }
 
 function countScore(value, question) {
