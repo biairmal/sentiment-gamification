@@ -4,8 +4,9 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1", >
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
@@ -14,10 +15,8 @@
 
     <!-- JQuery -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-
+    
     <title>Gamification!</title>
-
 </head>
 
 <body>
@@ -34,9 +33,8 @@
         <div id="question_number"></div>
         <div id="question"></div>
         <div class="answer_buttons">
-            <button id="ans_positive" onclick=answerQuestion(this.id) class="btn btn-success">Positive</button>
-            <button id="ans_neutral" onclick=answerQuestion(this.id) class="btn btn-light">Neutral</button>
-            <button id="ans_negative" onclick=answerQuestion(this.id) class="btn btn-danger">Negative</button>
+            <button id="ans_positive"  class="btn btn-success">Positive</button>
+            <button id="ans_negative"  class="btn btn-danger">Negative</button>
         </div>
     </div>
 
@@ -48,11 +46,13 @@
             <button id="home_btn" class="btn btn-light">Back to Home</button>
         </div>
     </div>
-    <!-- <script>    
-        var data = {!! json_encode($data, JSON_HEX_TAG) !!};
-    </script> -->
+    
+    <script type="text/javascript">
+        var gameData = "{{ json_encode($questions,JSON_FORCE_OBJECT)}}";
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    </script>
     <script type="text/javascript" src="{{ URL::asset('js/script.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('js/questions.js') }}"></script>
+    <!-- <scrip type="text/javascript" src="{{ URL::asset('js/questions.js') }}"></scrip> -->
 </body>
 
 </html>

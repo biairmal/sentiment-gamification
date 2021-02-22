@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GameController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +19,9 @@ use Illuminate\Support\Facades\Route;
 //     return view('home');
 // });
 
-Route::get('/mvc',[GameController::class,'index']);
+Route::get('/',[GameController::class,'index']);
+
+//ajax
+Route::get('/question', 'GameController@index');
+// Route::post('/answer', 'GameController@submitAnswer')->name('answer.add');
+Route::post('/answer', [GameController::class,'submitAnswer'])->name('answer.add');
