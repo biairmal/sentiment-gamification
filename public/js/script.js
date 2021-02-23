@@ -1,53 +1,45 @@
+// ==== html element for injetion ====
+const countElement = document.getElementById('countdown');
+const timerElement = document.getElementById('timer');
+const scoreElement = document.getElementById('score');
+const questionNumberElement = document.getElementById('question_number');
+const questionElement = document.getElementById('question');
+
+// ==== game variables ====
+const defaultCountdownTime = 3;
+const defaultGameTime = 60;
+let time = defaultCountdownTime;
+let gameTime = defaultGameTime;
+let score = 0
+let questionNumber = 1;
+
+// ==== question generator variables ====
+let questionData = null;
+let tempShowedQuestion = [];
+let currentQuestionId;
+
+// ==== button onclick function ====
+$("#start_btn").click(clickStart);
+$("#home_btn").click(backToHome);
+$("#restart_btn").click(clickRestart);
+$(".answer_buttons button").click(answerQuestion);
+
+// ==== X-CSRF token ====
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
 
-
-const countElement = document.getElementById('countdown');
-const timerElement = document.getElementById('timer');
-const scoreElement = document.getElementById('score');
-const questionNumberElement = document.getElementById('question_number');
-const questionElement = document.getElementById('question');
-let defaultCountdownTime = 3;
-let defaultGameTime = 60;
-let score, questionNumber;
-let time = defaultCountdownTime;
-let gameTime = defaultGameTime;
-let questionData = null;
-let tempShowedQuestion = [];
-let currentQuestionId;
-
-$("#start_btn").click(clickStart);
-$("#home_btn").click(backToHome);
-$("#restart_btn").click(clickRestart);
-$(".answer_buttons button").click(answerQuestion);
-
+// parsing question data from database
 try {
-    // Parse a JSON
     gameData = gameData.replaceAll('&quot;', '\"');
     questionData = Object.values(JSON.parse(gameData));
 } catch (e) {
-    // You can read e for more info
-    // Let's assume the error is that we already have parsed the payload
-    // So just return that
     questionData = Object.values(gameData);
 }
 
-function randomIntFromInterval(min, max) { // min and max included 
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-function getRandomIndex() {
-    randomIndex = randomIntFromInterval(0, questionData.length - 1);
-    if (tempShowedQuestion.indexOf(randomIndex == -1)) {
-        tempShowedQuestion.push(randomIndex);
-        return randomIndex;
-    }
-    return getRandomIndex();
-}
-
+// ==== game navigation ====
 function clickStart() {
     $(document).ready(function () {
         countElement.innerHTML = "";
@@ -63,6 +55,12 @@ function clickRestart() {
     clickStart();
 }
 
+function backToHome() {
+    $(".postgame").removeClass("enabled");
+    $(".pregame").removeClass("disabled");
+}
+
+// ==== countdown before start and game timer ====
 function countdown() {
     if (time > 0) {
         countElement.innerHTML = `${time}`;
@@ -95,6 +93,7 @@ function timer() {
     }
 }
 
+// ==== game state ====
 function gameStarted() {
     score = 0;
     questionNumber = 1;
@@ -114,20 +113,11 @@ function gameFinished() {
     tempShowedQuestion = [];
 }
 
-function backToHome() {
-    $(".postgame").removeClass("enabled");
-    $(".pregame").removeClass("disabled");
-}
-
-function getSentiment(question) {
-    //sentiment analysis model
-}
-
+// ==== question generator ====
 function showQuestion() {
     currentQuestionId = getRandomIndex();
     questionNumberElement.innerHTML = `Question ${questionNumber}`;
     questionElement.innerHTML = questionData[currentQuestionId].question;
-    // console.log(tempShowedQuestion);
 }
 
 function nextQuestion() {
@@ -136,6 +126,7 @@ function nextQuestion() {
 }
 
 function answerQuestion() {
+    // getting value from clicked answer buttons
     if (this.id == "ans_positive") {
         value = "positive";
     } else if (this.id == "ans_neutral") {
@@ -150,9 +141,9 @@ function answerQuestion() {
         type: 'POST',
         data: {
             _token: CSRF_TOKEN,
-            username: username,
-            value: value,
             question_id: question_id,
+            value: value,
+            username: username,
         },
         success : function(response){
             console.log(response);
@@ -165,10 +156,26 @@ function answerQuestion() {
     nextQuestion();
 }
 
+function getRandomIndex() {
+    // randomIndex = Math.floor(Math.random() * (max - min + 1) + min);
+    // max index = questionData.length - 1; min index = 0
+    randomIndex = Math.floor(Math.random() * (questionData.length));;
+    if (tempShowedQuestion.indexOf(randomIndex == -1)) {
+        tempShowedQuestion.push(randomIndex);
+        return randomIndex;
+    }
+    return getRandomIndex();
+}
+
+// ==== scoring system ====
 function countScore(value, question) {
     //place to count score
     correct_ans = getSentiment(question);
     if (value == correct_ans) {
         score++;
     }
+}
+
+function getSentiment(question) {
+    //sentiment analysis model here
 }

@@ -15,13 +15,10 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::get('/', function () {
-//     return view('home');
-// });
-
+// ==== home ====
 Route::get('/',[GameController::class,'index']);
 
-//ajax
+
+// ==== ajax ====
 Route::get('/question', 'GameController@index');
-// Route::post('/answer', 'GameController@submitAnswer')->name('answer.add');
 Route::post('/answer', [GameController::class,'submitAnswer'])->name('answer.add');

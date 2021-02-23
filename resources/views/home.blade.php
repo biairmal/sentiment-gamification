@@ -20,14 +20,18 @@
 </head>
 
 <body>
+
+    <!-- HOME / PRE GAME-->
     <div class="pregame">
         <div class="game_title">Sentiment Analysis Game!</div>
         <div class="game_about">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
         <div class="start_button"><button id="start_btn" class="btn btn-primary">Start Game</button></div>
     </div>
 
+    <!-- COUNTDOWN BEFORE THE GAME -->
     <div id="countdown"></div>
 
+    <!-- GAME STARTED  -->
     <div class="game">
         <div id="timer"></div>
         <div id="question_number"></div>
@@ -38,6 +42,7 @@
         </div>
     </div>
 
+    <!-- POST GAME -->
     <div class="postgame">
         <div class="yscore">Your Score</div>
         <div id="score"></div>
@@ -47,12 +52,15 @@
         </div>
     </div>
     
+    <!-- injecting csrf token to javascript -->
     <script type="text/javascript">
         var gameData = "{{ json_encode($questions,JSON_FORCE_OBJECT)}}";
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     </script>
+
+    <!-- javascript function -->
     <script type="text/javascript" src="{{ URL::asset('js/script.js') }}"></script>
-    <!-- <scrip type="text/javascript" src="{{ URL::asset('js/questions.js') }}"></scrip> -->
+
 </body>
 
 </html>

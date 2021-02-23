@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DatabaseModel;
 use App\Models\Answer;
 use App\Models\Questions;
 use Illuminate\Support\Facades\DB;
@@ -11,16 +10,16 @@ use Exception;
 
 class GameController extends Controller
 {
-
+    // home
     public function index()
     {
         $questions = Questions::orderBy('id', 'ASC')->get();
         return view('home', compact('questions'));
     }
 
+    // storing answer from user input
     public function submitAnswer(Request $request)
     {
-        
         DB::beginTransaction();
         try{
             $answer = new Answer();
@@ -36,29 +35,4 @@ class GameController extends Controller
             return $e;
         }
     }
-
-    // public function __construct()
-    // {
-    //     $this->DatabaseModel = new DatabaseModel();
-    // }
-
-    // public function index()
-    // {
-    //     $data = [
-    //         'questions' => $this->DatabaseModel->getQuestions(),
-    //     ];
-    //     return view('home', ['data' => $data]);
-    // }
-
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'question_id' => 'required',
-    //         'value' => 'required',
-    //         'username' => 'required',
-    //     ]);
-
-    //     DatabaseModel::create($request->all());
-    //     return json_encode(array("statusCode" => 200));
-    // }
 }
