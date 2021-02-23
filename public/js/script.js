@@ -135,23 +135,7 @@ function answerQuestion() {
         value = "negative";
     }
     question_id = currentQuestionId;
-    username = 'anonymous';
-    $.ajax({
-        url: '/answer',
-        type: 'POST',
-        data: {
-            _token: CSRF_TOKEN,
-            question_id: question_id,
-            value: value,
-            username: username,
-        },
-        success : function(response){
-            console.log(response);
-            console.log(response.username);
-            console.log(response.value);
-            console.log(response.question_id);
-        }
-    });
+    storeUserInput(question_id, value);
     countScore(value, question);
     nextQuestion();
 }
@@ -178,4 +162,25 @@ function countScore(value, question) {
 
 function getSentiment(question) {
     //sentiment analysis model here
+}
+
+// ==== database ====
+function storeUserInput(question_id, value) {
+    username = 'anonymous';
+    $.ajax({
+        url: '/answer',
+        type: 'POST',
+        data: {
+            _token: CSRF_TOKEN,
+            question_id: question_id,
+            value: value,
+            username: username,
+        },
+        success: function (response) {
+            console.log(response);
+            console.log(response.username);
+            console.log(response.value);
+            console.log(response.question_id);
+        }
+    });
 }
