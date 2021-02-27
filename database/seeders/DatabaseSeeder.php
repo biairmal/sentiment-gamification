@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
+        // NOTE : Soal yang pake " suka bikin error parsing pas di JS
         $cyber_bullying = [
             // unknown answers
             ['type' => 'unknown_answer', 'level' => 1, 'answer' => '', 'question' => 'Jijik liatnya suer deh minceeee'],
@@ -24,7 +25,7 @@ class DatabaseSeeder extends Seeder
             ['type' => 'unknown_answer', 'level' => 1, 'answer' => '', 'question' => 'Kasian ih nyari uang sampe segitunya'],
             ['type' => 'unknown_answer', 'level' => 1, 'answer' => '', 'question' => 'Anjir tontonan yg sangat tidak bermutu!'],
 
-            ['type' => 'unknown_answer', 'level' => 1, 'answer' => '', 'question' => 'Seorang presiden tanpa embel" gelar .. bangga sekali'],
+            ['type' => 'unknown_answer', 'level' => 1, 'answer' => '', 'question' => 'Seorang presiden tanpa embel-embel gelar .. bangga sekali'],
             ['type' => 'unknown_answer', 'level' => 1, 'answer' => '', 'question' => 'Proud of you Indonesia. God bless Indonesia'],
             ['type' => 'unknown_answer', 'level' => 1, 'answer' => '', 'question' => 'Amazing bngt Miss National Costume. Kereenn!! Bangga ama budaya indonesia'],
             ['type' => 'unknown_answer', 'level' => 1, 'answer' => '', 'question' => 'Ikut bangga pastinya'],
@@ -91,7 +92,7 @@ class DatabaseSeeder extends Seeder
             ['type' => 'absolute_answer', 'level' => 3, 'answer' => 'negatif', 'question' => 'Mengenang pidato kekalahan #AHY'],
             ['type' => 'absolute_answer', 'level' => 3, 'answer' => 'negatif', 'question' => 'Batal nyoblos, baru tau ternyata ga ada no.1 di kertas suara. #AHY #kangen #mosing'],
             ['type' => 'absolute_answer', 'level' => 3, 'answer' => 'negatif', 'question' => 'Sudah boleh Ngakak? survey mu jauh panggang dari api! #AHY'],
-            ['type' => 'absolute_answer', 'level' => 3, 'answer' => 'negatif', 'question' => 'Om AA kemana ? lepas #AHY kalah kok dia tutup mulut tidak koar" mau bongkar SBY'],
+            ['type' => 'absolute_answer', 'level' => 3, 'answer' => 'negatif', 'question' => 'Om AA kemana ? lepas #AHY kalah kok dia tutup mulut tidak koa-koar mau bongkar SBY'],
 
             ['type' => 'absolute_answer', 'level' => 3, 'answer' => 'positif', 'question' => 'Pilihan warga jkt Mayoritas bukan pada ahok, tapi calon selain ahok, terbukti di dua putaran pilkada dki. Mayoritas memilih AHY dan Anies'],
             ['type' => 'absolute_answer', 'level' => 3, 'answer' => 'positif', 'question' => 'Menurut AHY, Pilkada DKI memberi hikmah, pelajaran, ujian dan tantangan yang dapat ia ambil. Semua itu dapat mematangkan karakternya#AIMAN'],

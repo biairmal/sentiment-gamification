@@ -58,7 +58,7 @@
     
     <!-- injecting csrf token to javascript -->
     <script type="text/javascript">
-        var gameData = "{{ json_encode($questions,JSON_FORCE_OBJECT)}}";
+        var gameData = "{{ json_encode($questions,JSON_UNESCAPED_SLASHES)}}";
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     </script>
 

@@ -37,6 +37,7 @@ try {
     questionData = Object.values(JSON.parse(gameData));
 } catch (e) {
     questionData = Object.values(gameData);
+    console.log(e);
 }
 
 // ==== game navigation ====
@@ -134,8 +135,9 @@ function answerQuestion() {
     } else if (this.id == "ans_negative") {
         value = "negative";
     }
+    score +=1;
     question_id = currentQuestionId;
-    storeUserInput(question_id, value);
+    // storeUserInput(question_id, value);
     countScore(value, question);
     nextQuestion();
 }
