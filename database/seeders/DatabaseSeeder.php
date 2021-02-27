@@ -15,96 +15,114 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        $questions = [
-            ['question' => 'Kenapa sih harus dia lagi yang jadi peran utama?', 'answer' => 'negatif'],
-            ['question' => 'Aku tidak menyukai orang itu', 'answer' => 'negatif'],
-            ['question' => 'Lama banget jadi males aku', 'answer' => 'negatif'],
-            ['question' => 'Diam-diam dia membicarakanku dibelakang', 'answer' => 'negatif'],
-            ['question' => 'Aku tidak suka kalau kamu slow respond!', 'answer' => 'negatif'],
-            ['question' => 'Pusing mikirin orang yang ga bertanggung jawab', 'answer' => 'negatif'],
-            ['question' => 'Yah admin nya termasuk golongan pengonsumsi mecin dan pil pcc.. otak lu rusak min?', 'answer' => 'negatif'],
-            ['question' => 'Wah itu Kerdus mulutnya busuk...jangan jangan sampah makanannya', 'answer' => 'negatif'],
-            ['question' => 'Dasar plagiat semuanya, ga bisa kreatip. memalukan bgt', 'answer' => 'negatif'],
-            ['question' => 'Gue gak suka sm ni orang. Idupnya kebanyakan ribut.', 'answer' => 'negatif'],
-            ['question' => 'Cewe yg bgni yg hrsnya gosong jd abu aja di kebakaran pabrik yg lg viral kmrn tu', 'answer' => 'negatif'],
-            ['question' => 'Norak bener. Kegaet penjahat baru rasa', 'answer' => 'negatif'],
-            ['question' => 'Before and after pasca oplas ga ngefek ya.. tetep jelek n serem mukanya..ahahahhaha..', 'answer' => 'negatif'],
-            ['question' => 'Padahal kamu lebih kampungan loh, pake kerudung tapi mulutnya cuihh', 'answer' => 'negatif'],
-            ['question' => 'Ngomong aja belepotan banyak gaya lu bencong', 'answer' => 'negatif'],
-            ['question' => 'Dan lebih bagus lagi kalo mingkem aja hahahahahaha jahatnya akuuu', 'answer' => 'negatif'],
-            ['question' => 'Haduuh ini orang gak punya akhlak banget, perasaan kerjaan berantem mulu, banyak musuhnya', 'answer' => 'negatif'],
-            ['question' => 'Kasian ih nyari uang sampe segitunya', 'answer' => 'negatif'],
-            ['question' => 'Suaranya ancur banget, lebih merdu tukang gorengan', 'answer' => 'negatif'],
-            ['question' => 'Kemaren terbahak-bahak skrng lengket lg duhhh kok labil bgt sih mbak kayak abege aja ato yg kmrn cari sensasi biar top markotop ertong gak berkualitas', 'answer' => 'negatif'],
-            ['question' => 'Anjing nya ngamuk..hidup kok dmana2 pny musuh..udh kliatan mna yg baik dan bukan..org baik ga pny byk musuh..', 'answer' => 'negatif'],
-            ['question' => 'Ahhh katanya jaga ucapan, lahh ucapan dia ngk dijaga sendiri.. dasar munafik.. dasar betina zaman now ellu kali yangg kelebihan micin..', 'answer' => 'negatif'],
-            ['question' => 'Anjir tontonan yg sangat tidak bermutu!', 'answer' => 'negatif'],
-            ['question' => 'Najis najis udh homo aja harusnya, org kaya gini di musnahkan dari muka bumi', 'answer' => 'negatif'],
-            ['question' => 'Orang gila itu ???? pengen HITZ cri tenar rela dipenjara? Cari sensasi settingan supaya beken smpe hina2 org,,, astagfirullah... Sekaya apa sih??? Org kaya mulut nya ky sampah,ga sekolah ya???', 'answer' => 'negatif'],
-            ['question' => 'Cari sensasi supaya tenar, trus banya folowers nya. gak gt gt jg kalee... dasar orang stres, ngomong aja masih belepotan gk jelas gt. kampungan', 'answer' => 'negatif'],
-            ['question' => 'Sikat abiss lahh orng2 sialan kaya gini. Pemimpin negara sendiri gak di hormatin. Jgn mentang2 Bapak President kita terlalu baik jadi di sembarangin. Saya marah.. Gak boleh kita hina pemimpin kita sendiri.. Saya harap segera di tindak hukum orng ini', 'answer' => 'negatif'],
-            ['question' => 'Jijik banget lihat tingkah si upil ini. Mudah2an secepatnya tidur selamanya', 'answer' => 'negatif'],
-            ['question' => 'Yg nama ny plagiat ya plagiat, walaupun laku tp tetep ajah ciptaan dri hasil plagiat..', 'answer' => 'negatif'],
-            ['question' => 'Wah itu Kerdus mulutnya busuk...jangan jangan sampah makanannya', 'answer' => 'negatif'],
-            ['question' => 'Biadab!! Klo nanti anak lo di bully.. Gue mampusin ya!!!', 'answer' => 'negatif'],
-            ['question' => 'Editan banget itu. Ya ampun si mommy lambe kehabisan gosib ya buat si pelakor???', 'answer' => 'negatif'],
-            ['question' => 'Noh urus tu kuin lu, biar ga gatel nempel2 ama laki orng', 'answer' => 'negatif'],
-            ['question' => 'Wkwkwkwk udh gak laku lagi jd nyanyi dhajatan si lonte pelakor', 'answer' => 'negatif'],
-            ['question' => 'kamu itu yg bodoh! Ngapain keluarga depok komen org yg gak ada artinya lagi buat mereka', 'answer' => 'negatif'],
-            ['question' => 'Mata ku sepet baca koment fans ubul empang', 'answer' => 'negatif'],
-            ['question' => 'bego nya lagi pede amat ngomong seolah yg dia bilang paling bener, padahal bukti aja kaga ada. Mau keliatan pinter jatohnya bego', 'answer' => 'negatif'],
-            ['question' => 'Gada ganteng ganteng nya. Kebanyakan gaya kek mantan bini depok nya.', 'answer' => 'negatif'],
-            ['question' => 'Terimakasih ya. gratis 4Gnya ayo buruan upgrade', 'answer' => 'positif'],
-            ['question' => 'Makin betah aja sama kamu.', 'answer' => 'positif'],
-            ['question' => 'Lumayan ini murah meriah', 'answer' => 'positif'],
-            ['question' => 'Alhamdulillah sambil nunggu subuh bisa melihat lantunan Adhan Styles dari Mekah dan Madinah dengan jelas karena paket Internet', 'answer' => 'positif'],
-            ['question' => 'Menggunakan medsos harus sebijak mungkin. Apalagi ada fasilitas makin oke kayak FB gratis 30MB', 'answer' => 'positif'],
-            ['question' => 'Pagi itu, menyegarkan mata selain lari2 kecil, bisa juga dengan nikmatin internet, atau nelpon yang super murah, suara jernih', 'answer' => 'positif'],
-            ['question' => 'Saktinya balik lagi, alhamdulillah', 'answer' => 'positif'],
-            ['question' => 'Kangen nih dapat kiriman pos marchandes nya', 'answer' => 'positif'],
-            ['question' => 'Masalah sinyal disini Alhamdulillah kencang karena di kota besar kok', 'answer' => 'positif'],
-            ['question' => 'Kecepatan internet di ciwidey segini... mantap', 'answer' => 'positif'],
-            ['question' => 'Selalu bermanfaat sinyalnya', 'answer' => 'positif'],
-            ['question' => 'Makin mantap saja si', 'answer' => 'positif'],
-            ['question' => 'Ajaib min', 'answer' => 'positif'],
-            ['question' => 'BerbagiBerkah karena berbagi itu menyenangkan apalagi sama orang yang kita sayangi.', 'answer' => 'positif'],
-            ['question' => 'Sinyal 4g nya stabil nih. mantap', 'answer' => 'positif'],
-            ['question' => 'Kereeeennnnnn... suaranyaaahh okkeehh ketjeeehh badaaiik ughllaaaallaa..', 'answer' => 'positif'],
-            ['question' => 'Suka banget sama pasangan satu ini. Semoga gigi dan raffi menjadi keluarga sakinnah, mawaddah, warrahmah. ', 'answer' => 'positif'],
-            ['question' => 'Raisa cantik yaaa, meskipun artis tapi ga menonjolkan kalo nikah tuh harus mewah, udah cantik, sederhana, sempurna bgt', 'answer' => 'positif'],
-            ['question' => 'Bagus dong.. mencari ilmu kapanpun dimanapun.. itu karena suaminya orang berpendidikan??', 'answer' => 'positif'],
-            ['question' => 'Karna orang yang syudah cantik, ga perlu dandan heboh utk membuatnya terlihat cantik..', 'answer' => 'positif'],
-            ['question' => 'Sukak cewe cantik dan kmauan blajarnya tinggi', 'answer' => 'positif'],
-            ['question' => 'Yaampun ini artis bener bener good attitude yang layak jadi panutan. Dia kan bisa aja kuliah di luar negri. Tp karna baktinya sama suami , dia pilih kuliah di wilayah dekat suaminya . Salut banget', 'answer' => 'positif'],
-            ['question' => 'keren yaaa, kesederhanaannya terpancar jelas. sukak sm keluarga presiden ini', 'answer' => 'positif'],
-            ['question' => 'Proud of you Indonesia. God bless Indonesia', 'answer' => 'positif'],
-            ['question' => 'Ikut bangga pastinya', 'answer' => 'positif'],
-            ['question' => 'PROUD OF YOU KAK DEA. Sangat patut dibanggakan', 'answer' => 'positif'],
-            ['question' => 'Aku percaya kak niki orangnya jujur semangat kak niki hebat', 'answer' => 'positif'],
-            ['question' => 'Amazing bngt Miss National Costume. Kereenn!! Bangga ama budaya indonesia', 'answer' => 'positif'],
-            ['question' => 'Cantik dan gagah mudahan lancar dampe hari H', 'answer' => 'positif'],
-            ['question' => 'Dia ganteng tidak hanya saat berseragam, tapi ganteng saat menjadi panutan keluarganya..', 'answer' => 'positif'],
-            ['question' => 'Semoga selalu di berikan kesehatan dan panjang umur yah nek ,muda banget cantik dan MashaAllah', 'answer' => 'positif'],
-            ['question' => 'Terima kasih telah mendukung dan menyebarkan awareness terkait program pesawat R80. ', 'answer' => 'positif'],
-            ['question' => 'Wahhh Kerenn..... dan saat ini tempatnya semakin bagus Ibu.', 'answer' => 'positif'],
-            ['question' => 'Cantik dan ganteng-ganteng. Sehat selalu untuk mereka dan Bu Ani Sekeluarga', 'answer' => 'positif'],
-            ['question' => 'Semangat mebangun indonesia yg lebih maju pak Jokowi', 'answer' => 'positif'],
-            ['question' => 'Weewww bangga kali ak liatnya bang ', 'answer' => 'positif'],
-            ['question' => 'Bagus banget baju dan pengantinya happy weding', 'answer' => 'positif'],
-            ['question' => 'Gileee suaraaanyaa.. kereen parah.. sukak', 'answer' => 'positif'],
-            ['question' => 'Lebih keren dr penyanyi aslinya', 'answer' => 'positif'],
-            ['question' => 'Keren suaranya super merdu. Coba ikut audisi nyanyi, pasti bakatnya bs tersalurkan', 'answer' => 'positif'],
-            ['question' => 'Dgrin ini sampe bulu kuduk naik saking bgusnya, masyaallah apik bgt suaranya', 'answer' => 'positif'],
-            ['question' => 'Kerennnn suaranya bagus', 'answer' => 'positif'],
-            ['question' => 'Aduhh kerennnn suaranya enak . nge jazz2 gimanaa gitu', 'answer' => 'positif'],
-            ['question' => 'Kereeeeennnn padahal nyanyinya santai banget', 'answer' => 'positif'],
+
+        $cyber_bullying = [
+            // unknown answers
+            ['type' => 'unknown_answer', 'level' => 1, 'answer' => '', 'question' => 'Jijik liatnya suer deh minceeee'],
+            ['type' => 'unknown_answer', 'level' => 1, 'answer' => '', 'question' => 'Anjing nya ngamuk..hidup kok dmana2 pny musuh..udh kliatan mna yg baik dan bukan..org baik ga pny byk musuh'],
+            ['type' => 'unknown_answer', 'level' => 1, 'answer' => '', 'question' => 'Cuman jual goyangan yak, suara macam taik'],
+            ['type' => 'unknown_answer', 'level' => 1, 'answer' => '', 'question' => 'Kasian ih nyari uang sampe segitunya'],
+            ['type' => 'unknown_answer', 'level' => 1, 'answer' => '', 'question' => 'Anjir tontonan yg sangat tidak bermutu!'],
+
+            ['type' => 'unknown_answer', 'level' => 1, 'answer' => '', 'question' => 'Seorang presiden tanpa embel" gelar .. bangga sekali'],
+            ['type' => 'unknown_answer', 'level' => 1, 'answer' => '', 'question' => 'Proud of you Indonesia. God bless Indonesia'],
+            ['type' => 'unknown_answer', 'level' => 1, 'answer' => '', 'question' => 'Amazing bngt Miss National Costume. Kereenn!! Bangga ama budaya indonesia'],
+            ['type' => 'unknown_answer', 'level' => 1, 'answer' => '', 'question' => 'Ikut bangga pastinya'],
+            ['type' => 'unknown_answer', 'level' => 1, 'answer' => '', 'question' => 'Aku percaya kak niki orangnya jujur semangat kak niki hebat'],
+
+            // absolute answer
+            ['type' => 'absolute_answer', 'level' => 1, 'answer' => 'negatif', 'question' => 'Geblek lo tata...cowo bgt dibela2in balikan...hadeww...ntar ditinggal lg nyalahin tuh cowo...padahal kitenya yg oon.'],
+            ['type' => 'absolute_answer', 'level' => 1, 'answer' => 'negatif', 'question' => 'Kmrn termewek2 skr lengket lg duhhh kok labil bgt sih mbak kya abege ajah ato yg kmrn cari sensasi biar top markotoppp ertong gk berkualitas'],
+            ['type' => 'absolute_answer', 'level' => 1, 'answer' => 'negatif', 'question' => 'Hadewww permpuan itu lg!!!!sakit jiwa,knp harus dia yg jd peran utama di film hantu jeruk purut,ky khabisan stok Artis aja'],
+            ['type' => 'absolute_answer', 'level' => 1, 'answer' => 'negatif', 'question' => 'Suaranya ancur banget, lebih merdu tukang gorengan', 'answer' => 'negatif'],
+            ['type' => 'absolute_answer', 'level' => 1, 'answer' => 'negatif', 'question' => 'Cewek gatau diri nih, ngerebut pacar org. Udh mana punya abang yg ngedukung sifat jeleknya lg. Ckck'],
+
+            ['type' => 'absolute_answer', 'level' => 1, 'answer' => 'positif', 'question' => 'Yang sabar yaa.. insya Allah menjadi pembuka pintu syurga dan penghalang api neraka bagi kedua orang tuanya'],
+            ['type' => 'absolute_answer', 'level' => 1, 'answer' => 'positif', 'question' => 'Raisa cantik yaaa, meskipun artis tapi ga menonjolkan kalo nikah tuh harus mewah, udah cantik, sederhana, sempurna bgt,'],
+            ['type' => 'absolute_answer', 'level' => 1, 'answer' => 'positif', 'question' => 'Karna orang yang syudah cantik, ga perlu dandan heboh utk membuatnya terlihat cantik.. dengan makeup yang simple gitu aja sudah mempesona?????? bikin hamish klepek2'],
+            ['type' => 'absolute_answer', 'level' => 1, 'answer' => 'positif', 'question' => 'Bagus dong.. mencari ilmu kapanpun dimanapun.. itu karena suaminya orang berpendidikan'],
+            ['type' => 'absolute_answer', 'level' => 1, 'answer' => 'positif', 'question' => 'Sukak cewe cantik dan kmauan blajarnya tinggi '],
         ];
 
-        foreach ($questions as $questions) {
+        $tayangan_tv = [
+            // unknown answers
+            ['type' => 'unknown_answer', 'level' => 2, 'answer' => '', 'question' => 'Kalo episode berikutnya muncul lagi di @HitamPutihT7 saya ga bakal nonton lg hitam putih.. #hitamputiht7'],
+            ['type' => 'unknown_answer', 'level' => 2, 'answer' => '', 'question' => 'Orang tuna netra aja bisa berbagi, kok yg pegang jabatan tinggi korupsi'],
+            ['type' => 'unknown_answer', 'level' => 2, 'answer' => '', 'question' => 'Kalo sekarang yang nyanyi anak2,, tapi lagu Na ... Terlalu Menyakitkan Memalukan untuk disebutkan #savelaguanak #HitamputihT7'],
+            ['type' => 'unknown_answer', 'level' => 2, 'answer' => '', 'question' => 'Bukan maksud ngatain tp cuma bertanya knp hanya orang kecil atau bawah yg ditindes? '],
+            ['type' => 'unknown_answer', 'level' => 2, 'answer' => '', 'question' => 'Suara sang veteran kalau perlu koruptor di hukum mati!'],
+
+            ['type' => 'unknown_answer', 'level' => 2, 'answer' => '', 'question' => 'Nonton kisah anastasya wella di #hitamputihtrans7 seru bgt ya kisahnya. Punya 9 kepribadian berbeda.'],
+            ['type' => 'unknown_answer', 'level' => 2, 'answer' => '', 'question' => 'Yang bikin selalu rindu kalau jauh dari nya... #hitamputihtrans7'],
+            ['type' => 'unknown_answer', 'level' => 2, 'answer' => '', 'question' => 'Spensa Boys asal poso di hitam putih trans7 ASLI KALIAN KEREN!! yang pake kemeja biru putih, si gingsul ada salam dari sini'],
+            ['type' => 'unknown_answer', 'level' => 2, 'answer' => '', 'question' => 'setiap hari aku slalu nonton Hitam Putih di Trans7. Hbs acara nya bagus banget mas Dedy.'],
+            ['type' => 'unknown_answer', 'level' => 2, 'answer' => '', 'question' => 'Acara Hitam Putih di Trans7 malam ini pembahasannya MANTAB! Setuju kalau bakal diperbanyak yang mengulas hal semacam ini'],
+
+            // absolute answer
+            ['type' => 'absolute_answer', 'level' => 2, 'answer' => 'negatif', 'question' => 'Berasa aneh nonton acara Hitam Putih tapi penonton nya anak yg sekolah di sekolah gua #smkjakarta1'],
+            ['type' => 'absolute_answer', 'level' => 2, 'answer' => 'negatif', 'question' => 'Sedih dengar curhatanmu, Roxana. Semoga Tuhan tunjukkan jalan dan titik terang utk Roxana '],
+            ['type' => 'absolute_answer', 'level' => 2, 'answer' => 'negatif', 'question' => 'Sombongnya mentang2 kaya pake diumumkan, saya host kaya di Hitam Putih Trans7...', 'answer' => 'negatif'],
+            ['type' => 'absolute_answer', 'level' => 2, 'answer' => 'negatif', 'question' => 'Parah banget hitam putih di Trans7. Ngomong sembarang. Yg merusak generasi muda acara kyk gini', 'answer' => 'negatif'],
+            ['type' => 'absolute_answer', 'level' => 2, 'answer' => 'negatif', 'question' => 'Orang bangkrut itu bukan perkara soal uang tetapi bangkrut itu orang yang sudah tidak punya mimpi', 'answer' => 'negatif'],
+
+            ['type' => 'absolute_answer', 'level' => 2, 'answer' => 'positif', 'question' => 'Ada nih di trans7 hitam putih, dia dpt penghargaan juga di norwegia #hitamputih'],
+            ['type' => 'absolute_answer', 'level' => 2, 'answer' => 'positif', 'question' => 'Terima kasih pak.... Sudah mau membantu kami untuk menyekolahkan adik saya.... #hitamputihtrans7'],
+            ['type' => 'absolute_answer', 'level' => 2, 'answer' => 'positif', 'question' => 'Acara hitam putih paling bagus buat di lihat'],
+            ['type' => 'absolute_answer', 'level' => 2, 'answer' => 'positif', 'question' => 'Bagus Rancangan Seperti ini di TRANS7 HitamPutih, Sambil2 Dakwah Hiburannya. Terima kasih Ustadz Wijayanto...'],
+            ['type' => 'absolute_answer', 'level' => 2, 'answer' => 'positif', 'question' => 'Acara hitam putih di trans7 topiknya bagus nih. Ttg Kepribadian ganda.'],
+        ];
+
+        $pilkada = [
+            // unknown answers
+            ['type' => 'unknown_answer', 'level' => 3, 'answer' => '', 'question' => 'Kalau pencatutan nama #ahy dan mpo #silvi melanggar hukum ga ya.. wkwkwkwkkwkk'],
+            ['type' => 'unknown_answer', 'level' => 3, 'answer' => '', 'question' => 'Paslon salah langkah seperti dilakukan Sandi ini, bukan tidak mungkin jadi bumerang gagal dapat suara'],
+            ['type' => 'unknown_answer', 'level' => 3, 'answer' => '', 'question' => 'Jangan2, relawan inilah yang gembosi'],
+            ['type' => 'unknown_answer', 'level' => 3, 'answer' => '', 'question' => 'Kini, ketika #AHY berada di luar arena, tabir kegelapan & tiada harapan kembali menyergap rakyat. Kemana lagi rakyat mencari ketulusan?'],
+            ['type' => 'unknown_answer', 'level' => 3, 'answer' => '', 'question' => 'Jangan curiga dulu saldonya bisa di kenti seperti BLT orang mau berbuat baik belum apa2 sudah curiga mekanismenya seperti apa #AHY'],
+
+            ['type' => 'unknown_answer', 'level' => 3, 'answer' => '', 'question' => 'Sebentar lagi kita lupakan kegilaan pilkada DKI. Mari berlari bersama AHY. Kita mulai dari Kepri 23 April'],
+            ['type' => 'unknown_answer', 'level' => 3, 'answer' => '', 'question' => 'Saya bilang PASTI MENANG karena bentuk keyakinan akan keberhasilan goal goal LAIN dari IMPROVISASI politik Pak SBY & Pak AHY,di Pilkada DKI.'],
+            ['type' => 'unknown_answer', 'level' => 3, 'answer' => '', 'question' => 'Jadi, tolong hargai sikap saya dan beberapa pendukung AHY yang memilih bersikap netral di putaran kedua Pilkada DKI 2017 ini.'],
+            ['type' => 'unknown_answer', 'level' => 3, 'answer' => '', 'question' => 'Kita tunggu kualitas jiwa Anies Sandi..apa ucapan atas peran suara loyalis AHY-Silvy dalam kemenangan pilkada ini #BasukiKeokMasukBui'],
+            ['type' => 'unknown_answer', 'level' => 3, 'answer' => '', 'question' => 'Mari beri masukan & kritik yang membangun bagi yang kalah dalam pertandingan.'],
+
+            // absolute answer
+            ['type' => 'absolute_answer', 'level' => 3, 'answer' => 'negatif', 'question' => 'Kasian oh kasian dengan peluru 1milyar untuk tiap RW #agussilvy tidak mempan menangin pilkada'],
+            ['type' => 'absolute_answer', 'level' => 3, 'answer' => 'negatif', 'question' => 'Mengenang pidato kekalahan #AHY'],
+            ['type' => 'absolute_answer', 'level' => 3, 'answer' => 'negatif', 'question' => 'Batal nyoblos, baru tau ternyata ga ada no.1 di kertas suara. #AHY #kangen #mosing'],
+            ['type' => 'absolute_answer', 'level' => 3, 'answer' => 'negatif', 'question' => 'Sudah boleh Ngakak? survey mu jauh panggang dari api! #AHY'],
+            ['type' => 'absolute_answer', 'level' => 3, 'answer' => 'negatif', 'question' => 'Om AA kemana ? lepas #AHY kalah kok dia tutup mulut tidak koar" mau bongkar SBY'],
+
+            ['type' => 'absolute_answer', 'level' => 3, 'answer' => 'positif', 'question' => 'Pilihan warga jkt Mayoritas bukan pada ahok, tapi calon selain ahok, terbukti di dua putaran pilkada dki. Mayoritas memilih AHY dan Anies'],
+            ['type' => 'absolute_answer', 'level' => 3, 'answer' => 'positif', 'question' => 'Menurut AHY, Pilkada DKI memberi hikmah, pelajaran, ujian dan tantangan yang dapat ia ambil. Semua itu dapat mematangkan karakternya#AIMAN'],
+            ['type' => 'absolute_answer', 'level' => 3, 'answer' => 'positif', 'question' => 'Dari pada pendukung Ahok berantem terus. Mending kaya pendukung AHY membuat kopdar biar makin luas siapa tau jadi calon lagi'],
+            ['type' => 'absolute_answer', 'level' => 3, 'answer' => 'positif', 'question' => 'AHY memang kalah di pilkada tetapi MENANG di hati rakyat.'],
+            ['type' => 'absolute_answer', 'level' => 3, 'answer' => 'positif', 'question' => 'Soal mental kalah Pilkada, Indonesia harus berguru pada sosok AHY.'],
+        ];
+
+
+        foreach ($cyber_bullying as $questions) {
             DB::table('questions')->insert([
                 'question' => $questions['question'],
                 'correct_answer' => $questions['answer'],
-                'question_type' => 'absolute_answer',
+                'question_type' => $questions['type'],
+                'level' => $questions['level'],
+            ]);
+        }
+        foreach ($tayangan_tv as $questions) {
+            DB::table('questions')->insert([
+                'question' => $questions['question'],
+                'correct_answer' => $questions['answer'],
+                'question_type' => $questions['type'],
+                'level' => $questions['level'],
+            ]);
+        }
+        foreach ($pilkada as $questions) {
+            DB::table('questions')->insert([
+                'question' => $questions['question'],
+                'correct_answer' => $questions['answer'],
+                'question_type' => $questions['type'],
+                'level' => $questions['level'],
             ]);
         }
     }
