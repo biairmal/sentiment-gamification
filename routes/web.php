@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\LoginWithGoogleController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -22,3 +23,10 @@ Route::get('/',[GameController::class,'index']);
 // ==== ajax ====
 Route::get('/question', 'GameController@index');
 Route::post('/answer', [GameController::class,'submitAnswer'])->name('answer.add');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+Route::get('authorized/google', [LoginWithGoogleController::class, 'redirectToGoogle']);
+Route::get('authorized/google/callback', [LoginWithGoogleController::class, 'handleGoogleCallback']);
