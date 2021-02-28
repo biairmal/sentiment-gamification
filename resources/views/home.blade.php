@@ -30,11 +30,19 @@
 
     <!-- COUNTDOWN BEFORE THE GAME -->
     <div id="countdown"></div>
+
+    @if (Auth::user() == null)
     <div class="flex items-center justify-end mt-4">
                 <a href="{{ url('authorized/google') }}">
-                    <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" style="margin-left: 3em;">
+                    <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" style="margin-left: 3em;" width="150px">
                 </a>
             </div>
+    @else
+    <div class="logout">
+        <a>{{Auth::user()->name}}</a>
+        <a href="{{ url('logout') }}">Logout</a>
+    </div>
+    @endif
     <!-- GAME STARTED  -->
     <div class="game">
         <div id="timer"></div>
@@ -60,6 +68,7 @@
     <script type="text/javascript">
         var gameData = "{{ json_encode($questions,JSON_UNESCAPED_SLASHES)}}";
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        var userData = "{{ json_encode(Auth::user(),JSON_UNESCAPED_SLASHES)}}";
     </script>
 
     <!-- javascript function -->

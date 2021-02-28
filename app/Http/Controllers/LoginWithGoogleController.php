@@ -10,7 +10,7 @@ use Exception;
 
 class LoginWithGoogleController extends Controller
 {
-     public function redirectToGoogle()
+    public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
     }
@@ -18,32 +18,41 @@ class LoginWithGoogleController extends Controller
     public function handleGoogleCallback()
     {
         try {
-      
+
             $user = Socialite::driver('google')->user();
-       
+
             $finduser = User::where('google_id', $user->id)->first();
-       
-            if($finduser){
-       
+
+            if ($finduser) {
+
                 Auth::login($finduser);
-      
-                return redirect()->intended('dashboard');
-       
-            }else{
+
+                return redirect()->intended('/');
+            } else {
                 $newUser = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
-                    'google_id'=> $user->id,
+                    'google_id' => $user->id,
                     'password' => encrypt('123456dummy')
                 ]);
-      
+
                 Auth::login($newUser);
-      
-                return redirect()->intended('dashboard');
+
+                return redirect()->intended('/');
             }
-      
         } catch (Exception $e) {
             dd($e->getMessage());
         }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

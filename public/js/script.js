@@ -6,8 +6,8 @@ const questionNumberElement = document.getElementById('question_number');
 const questionElement = document.getElementById('question');
 
 // ==== game variables ====
-const defaultCountdownTime = 3;
-const defaultGameTime = 60;
+const defaultCountdownTime = 1;
+const defaultGameTime = 30;
 let time = defaultCountdownTime;
 let gameTime = defaultGameTime;
 let score = 0
@@ -15,8 +15,17 @@ let questionNumber = 1;
 
 // ==== question generator variables ====
 let questionData = null;
+let questionBasedOnLevel = [];
+let questionForCalibration = [];
 let tempShowedQuestion = [];
-let currentQuestionId;
+let questionArray;
+let currentQuestionIndex;
+
+// ==== user variables ====
+let user = null;
+let userLevel = 1;
+let userInputValid = false;
+let calibrationScore = 0;
 
 // ==== button onclick function ====
 $("#start_btn").click(clickStart);
@@ -34,9 +43,12 @@ $.ajaxSetup({
 // parsing question data from database
 try {
     gameData = gameData.replaceAll('&quot;', '\"');
+    userData = userData.replaceAll('&quot;', '\"');
     questionData = Object.values(JSON.parse(gameData));
+    user = JSON.parse(userData);
 } catch (e) {
     questionData = Object.values(gameData);
+    user = userData;
     console.log(e);
 }
 
@@ -102,6 +114,8 @@ function gameStarted() {
     setTimeout(function () {
         $("#countdown").removeClass("enabled");
         $(".game").addClass("enabled");
+        getUserLevel();
+        getQuestionsBasedOnLevel();
         showQuestion();
     }, 1000);
 }
@@ -111,14 +125,30 @@ function gameFinished() {
     $(".game").removeClass("enabled");
     scoreElement.innerHTML = `${score}`;
     score = 0;
+    calibrationScore = 0;
     tempShowedQuestion = [];
+    questionBasedOnLevel = [];
+}
+
+function getUserLevel() {
+    if (user != null) {
+        userLevel = user.level;
+    } else {
+        userLevel = 1;
+    }
+    // console.log(userLevel);
 }
 
 // ==== question generator ====
-function showQuestion() {
-    currentQuestionId = getRandomIndex();
+async function showQuestion() {
+    if (questionNumber <= 5) {
+        questionArray = questionForCalibration;
+    } else {
+        questionArray = questionBasedOnLevel;
+    }
+    currentQuestionIndex = await getRandomIndex(questionArray);
     questionNumberElement.innerHTML = `Question ${questionNumber}`;
-    questionElement.innerHTML = questionData[currentQuestionId].question;
+    questionElement.innerHTML = questionArray[currentQuestionIndex].question;
 }
 
 function nextQuestion() {
@@ -129,23 +159,27 @@ function nextQuestion() {
 function answerQuestion() {
     // getting value from clicked answer buttons
     if (this.id == "ans_positive") {
-        value = "positive";
-    } else if (this.id == "ans_neutral") {
-        value = "neutral";
+        value = "positif";
     } else if (this.id == "ans_negative") {
-        value = "negative";
+        value = "negatif";
     }
-    score +=1;
-    question_id = currentQuestionId;
-    // storeUserInput(question_id, value);
-    countScore(value, question);
+    question_id = questionArray[currentQuestionIndex].id;
+    if (questionNumber == 6) {
+        checkCalibration();
+        console.log(userInputValid);
+    }
+    if (userInputValid == true) {
+        console.log("input valid");
+        storeUserInput(question_id, value);
+    }
+    countScore(value, question_id);
     nextQuestion();
 }
 
-function getRandomIndex() {
+function getRandomIndex(questionArray) {
     // randomIndex = Math.floor(Math.random() * (max - min + 1) + min);
     // max index = questionData.length - 1; min index = 0
-    randomIndex = Math.floor(Math.random() * (questionData.length));;
+    randomIndex = Math.floor(Math.random() * (questionArray.length));;
     if (tempShowedQuestion.indexOf(randomIndex == -1)) {
         tempShowedQuestion.push(randomIndex);
         return randomIndex;
@@ -153,12 +187,47 @@ function getRandomIndex() {
     return getRandomIndex();
 }
 
+function getQuestionsBasedOnLevel() {
+    for (let i = 0; i < questionData.length; i++) {
+        if (questionData[i].level == userLevel) {
+            if (questionData[i].question_type == "absolute_answer") {
+                questionForCalibration.push(questionData[i]);
+            } else {
+                questionBasedOnLevel.push(questionData[i]);
+            }
+        }
+    }
+    console.log(questionBasedOnLevel);
+    console.log(questionForCalibration);
+}
+
+// to check if user answer the questions seriously
+function checkCalibration() {
+    if (calibrationScore > 2) {
+        userInputValid = true;
+    } else {
+        userInputValid = false;
+    }
+}
+
 // ==== scoring system ====
-function countScore(value, question) {
-    //place to count score
-    correct_ans = getSentiment(question);
-    if (value == correct_ans) {
-        score++;
+function countScore(value, question_id) {
+    // count score with sentiment analysis model
+    // correct_ans = getSentiment(question);
+    // if (value == correct_ans) {
+    //     score++;
+    // }
+
+    // count score without sentiment analysis model
+    if (questionArray[currentQuestionIndex].question_type == "absolute_answer") {
+        if (questionArray[currentQuestionIndex].correct_answer == value) {
+            score += 10;
+            if (questionNumber <= 5) {
+                calibrationScore += 1;
+            }
+        }
+    } else {
+        score += 5;
     }
 }
 
@@ -176,7 +245,7 @@ function storeUserInput(question_id, value) {
             _token: CSRF_TOKEN,
             question_id: question_id,
             value: value,
-            username: username,
+            username: user.email,
         },
         success: function (response) {
             console.log(response);
