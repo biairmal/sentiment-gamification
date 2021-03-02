@@ -31,7 +31,7 @@ let calibrationScore = 0;
 $("#start_btn").click(clickStart);
 $("#home_btn").click(backToHome);
 $("#restart_btn").click(clickRestart);
-$(".answer_buttons button").click(answerQuestion);
+$(".answer-buttons button").click(answerQuestion);
 
 // ==== X-CSRF token ====
 $.ajaxSetup({
@@ -139,6 +139,8 @@ function getUserLevel() {
     // console.log(userLevel);
 }
 
+
+
 // ==== question generator ====
 async function showQuestion() {
     if (questionNumber <= 5) {
@@ -166,7 +168,7 @@ function answerQuestion() {
     question_id = questionArray[currentQuestionIndex].id;
     if (questionNumber == 6) {
         checkCalibration();
-        console.log(userInputValid);
+        console.log("userInputValid : " + userInputValid);
     }
     if (userInputValid == true) {
         console.log("input valid");
@@ -237,7 +239,7 @@ function getSentiment(question) {
 
 // ==== database ====
 function storeUserInput(question_id, value) {
-    username = 'anonymous';
+    userInfo = (user != null) ? user.email : "anonymous@gmail.com" ;
     $.ajax({
         url: '/answer',
         type: 'POST',
@@ -245,7 +247,7 @@ function storeUserInput(question_id, value) {
             _token: CSRF_TOKEN,
             question_id: question_id,
             value: value,
-            username: user.email,
+            username: userInfo,
         },
         success: function (response) {
             console.log(response);

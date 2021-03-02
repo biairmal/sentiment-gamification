@@ -26,6 +26,7 @@ Route::post('/answer', [GameController::class,'submitAnswer'])->name('answer.add
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/home',[GameController::class,'index'])->name('home');
 
+// google authhentication
 Route::get('authorized/google', [LoginWithGoogleController::class, 'redirectToGoogle']);
 Route::get('authorized/google/callback', [LoginWithGoogleController::class, 'handleGoogleCallback']);
 Route::get('logout', [LoginWithGoogleController::class, 'logout']);
