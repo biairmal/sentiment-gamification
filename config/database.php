@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Str;
-$DATABASE_URL=parse_url(‘postgres://pckrmuyevmvodz:3ea54941c0f1ad918519fece96d527ba5d90eb8e69d9b9144fa8bdbb5634f050@ec2-54-209-43-223.compute-1.amazonaws.com:5432/d37dr7bd165eb0’);
+$DATABASE_URL=parse_url('postgres://pckrmuyevmvodz:3ea54941c0f1ad918519fece96d527ba5d90eb8e69d9b9144fa8bdbb5634f050@ec2-54-209-43-223.compute-1.amazonaws.com:5432/d37dr7bd165eb0');
 return [
 
     /*
