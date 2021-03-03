@@ -181,7 +181,7 @@ function answerQuestion() {
 function getRandomIndex(questionArray) {
     // randomIndex = Math.floor(Math.random() * (max - min + 1) + min);
     // max index = questionData.length - 1; min index = 0
-    randomIndex = Math.floor(Math.random() * (questionArray.length));;
+    randomIndex = Math.floor(Math.random() * (questionArray.length));
     if (tempShowedQuestion.indexOf(randomIndex == -1)) {
         tempShowedQuestion.push(randomIndex);
         return randomIndex;

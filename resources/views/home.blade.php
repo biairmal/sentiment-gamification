@@ -38,7 +38,7 @@
     <!-- End of User Account -->
 
     <!-- Pre Game-->
-    <div class="pregame">
+    <div class="pregame disabled">
 
         <!-- Game Info-->
         <div class="game-info">
@@ -133,13 +133,20 @@
     <!-- End of Game -->
 
     <!-- Post Game -->
-    <div class="postgame">
-        <div class="yscore">Your Score</div>
-        <div id="score"></div>
-        <div class="postgame-buttons">
-            <button id="restart_btn" class="btn btn-primary">Play Again</button>
-            <button id="home_btn" class="btn btn-light">Back to Home</button>
+    <div class="postgame enabled">
+        <div class="score-box">
+            <div class="text-title inline">Total Score Anda : </div>
+            <div id="score" class="text-title inline">50</div>
+            <hr class="col-2 hr-modified">
+            <div class="postgame-text">Selamat anda telah melewati LEVEL 1! Apakah anda ingin lanjut level berikutnya?</div>
+            <div class="postgame-buttons">
+                <button id="restart_btn" class="btn button"><span>Play Again</span></button>
+                <button id="home_btn" class="btn button">Back to Home</button>
+            </div>
         </div>
+
+
+
     </div>
     <!-- End of Post Game -->
 
