@@ -38,7 +38,7 @@
     <!-- End of User Account -->
 
     <!-- Pre Game-->
-    <div class="pregame disabled">
+    <div class="pregame">
 
         <!-- Game Info-->
         <div class="game-info">
@@ -133,10 +133,12 @@
     <!-- End of Game -->
 
     <!-- Post Game -->
-    <div class="postgame enabled">
+    <div class="postgame">
         <div class="score-box">
-            <div class="text-title inline">Total Score Anda : </div>
-            <div id="score" class="text-title inline">50</div>
+            <div class="text-title inline">
+                Total Score Anda :
+                <div id="score" class="text-title inline">50</div>
+            </div>
             <hr class="col-2 hr-modified">
             <div class="postgame-text">Selamat anda telah melewati LEVEL 1! Apakah anda ingin lanjut level berikutnya?</div>
             <div class="postgame-buttons">
