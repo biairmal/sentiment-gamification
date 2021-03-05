@@ -16,25 +16,41 @@
     <!-- JQuery -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-    <!-- PAGE TITLE -->
+    <!-- Page Title -->
     <title>Kazee | Sentiment Analysis Game</title>
 </head>
 
 <body>
 
     <!-- User Account -->
-    @if (Auth::user() == null)
-    <div class="flex items-center justify-end mt-4">
-        <a href="{{ url('authorized/google') }}">
-            <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" style="margin-left: 3em;" width="150px">
-        </a>
+    <div class="user">
+        
+        <div class="user-info">
+            <button class="btn" id="toggle_popup" data-toggle="tooltip" data-placement="right" title="Click me"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill=#F73861 class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                </svg></button>
+            @if (Auth::user() != null)
+            <a>Welcome, {{Auth::user()->name}} !</a>
+            @endif
+            <div class="popup-box">
+                @if (Auth::user() == null)
+
+                <a class="btn user-button" href="{{ url('authorized/google') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+                        <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
+                    </svg>
+                    <div class="inline">Login</div>
+                </a>
+
+                @else
+                <a class="btn user-button" href="{{ url('logout') }}">Logout</a>
+                @endif
+            </div>
+        </div>
+
     </div>
-    @else
-    <div class="logout">
-        <a>{{Auth::user()->name}}</a>
-        <a href="{{ url('logout') }}">Logout</a>
-    </div>
-    @endif
+
     <!-- End of User Account -->
 
     <!-- Pre Game-->
@@ -140,7 +156,7 @@
                 <div id="score" class="text-title inline">50</div>
             </div>
             <hr class="col-2 hr-modified">
-            <div class="postgame-text">Selamat anda telah melewati LEVEL 1! Apakah anda ingin lanjut level berikutnya?</div>
+            <div class="postgame-text">Horaaay! Anda telah menyelesaikan game ini. Apakah ingin lanjut bermain?</div>
             <div class="postgame-buttons">
                 <button id="restart_btn" class="btn button"><span>Play Again</span></button>
                 <button id="home_btn" class="btn button">Back to Home</button>
