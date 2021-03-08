@@ -32,6 +32,7 @@ $("#start_btn").click(clickStart);
 $("#home_btn").click(backToHome);
 $("#restart_btn").click(clickRestart);
 $(".answer-buttons button").click(answerQuestion);
+$("#toggle_popup").click(togglePopupBox);
 
 // ==== X-CSRF token ====
 $.ajaxSetup({
@@ -39,6 +40,8 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+
+
 
 // parsing question data from database
 try {
@@ -52,6 +55,10 @@ try {
     console.log(e);
 }
 
+
+function togglePopupBox() {
+    $(".popup-box").fadeToggle("popup-box");
+}
 // ==== game navigation ====
 function clickStart() {
     $(document).ready(function () {
