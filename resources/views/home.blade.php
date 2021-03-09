@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 
@@ -21,7 +22,6 @@
 </head>
 
 <body>
-
     <!-- User Account -->
     <div class="user">
         
@@ -100,6 +100,7 @@
 
         <button id="start_btn" class="btn button"><span>Mulai Bermain</span></button>
 
+        @if($leaderboard != "[]")
         <!-- Leaderboard -->
         <div class="leaderboard">
             <div class="text-title">Leaderboard</div>
@@ -111,16 +112,20 @@
                         <th>Level</th>
                         <th>Total Score</th>
                     </tr>
-                    @for ($i = 1; $i < 11; $i++) <tr>
-                        <td>{{$i}}</td>
-                        <td>Banana</td>
-                        <td>5</td>
-                        <td>500</td>
-                        </tr>
-                        @endfor
+                    @for ($i=0; $i<count($leaderboard); $i++ )
+                    <tr>
+                        <td>{{$i+1}}</td>
+                        <td>{{$leaderboard[$i]->name}}</td>
+                        <td>{{$leaderboard[$i]->level}}</td>
+                        <td>{{$leaderboard[$i]->total_points}}</td>
+                    </tr>
+                    @endfor
+                    
                 </table>
             </div>
         </div>
+        @endif
+        
         <!-- End of Leaderboard -->
         <div class="sized-box"></div>
     </div>
@@ -159,7 +164,7 @@
             <div class="postgame-text">Horaaay! Anda telah menyelesaikan game ini. Apakah ingin lanjut bermain?</div>
             <div class="postgame-buttons">
                 <button id="restart_btn" class="btn button"><span>Play Again</span></button>
-                <button id="home_btn" class="btn button">Back to Home</button>
+                <a id="home_btn" class="btn button" href="{{url('/')}}">Back to Home</a>
             </div>
         </div>
 

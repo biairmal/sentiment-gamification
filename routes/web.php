@@ -23,6 +23,7 @@ Route::get('/',[GameController::class,'index']);
 // ==== ajax ====
 Route::get('/question', 'GameController@index');
 Route::post('/answer', [GameController::class,'submitAnswer'])->name('answer.add');
+Route::post('/submit-score', [GameController::class,'submitScore'])->name('score.add');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/home',[GameController::class,'index'])->name('home');
 

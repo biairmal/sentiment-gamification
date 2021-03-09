@@ -7,7 +7,7 @@ const questionElement = document.getElementById('question');
 
 // ==== game variables ====
 const defaultCountdownTime = 1;
-const defaultGameTime = 30;
+const defaultGameTime = 5;
 let time = defaultCountdownTime;
 let gameTime = defaultGameTime;
 let score = 0
@@ -23,13 +23,14 @@ let currentQuestionIndex;
 
 // ==== user variables ====
 let user = null;
+let userInfo;
 let userLevel = 1;
 let userInputValid = false;
 let calibrationScore = 0;
 
 // ==== button onclick function ====
 $("#start_btn").click(clickStart);
-$("#home_btn").click(backToHome);
+// $("#home_btn").click(backToHome);
 $("#restart_btn").click(clickRestart);
 $(".answer-buttons button").click(answerQuestion);
 $("#toggle_popup").click(togglePopupBox);
@@ -40,7 +41,6 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-
 
 
 // parsing question data from database
@@ -54,6 +54,7 @@ try {
     user = userData;
     console.log(e);
 }
+
 
 
 function togglePopupBox() {
@@ -115,7 +116,9 @@ function timer() {
 
 // ==== game state ====
 function gameStarted() {
+    userInfo = (user != null) ? user.email : "anonymous@gmail.com";
     score = 0;
+    console.log(userInfo)
     questionNumber = 1;
     timerInterval = setInterval(timer, 1000);
     setTimeout(function () {
@@ -131,6 +134,9 @@ function gameFinished() {
     $(".postgame").addClass("enabled");
     $(".game").removeClass("enabled");
     scoreElement.innerHTML = `${score}`;
+    if (score > 0) {
+        storeUserScore();
+    }
     score = 0;
     calibrationScore = 0;
     tempShowedQuestion = [];
@@ -246,7 +252,6 @@ function getSentiment(question) {
 
 // ==== database ====
 function storeUserInput(question_id, value) {
-    userInfo = (user != null) ? user.email : "anonymous@gmail.com" ;
     $.ajax({
         url: '/answer',
         type: 'POST',
@@ -261,6 +266,21 @@ function storeUserInput(question_id, value) {
             console.log(response.username);
             console.log(response.value);
             console.log(response.question_id);
+        }
+    });
+}
+
+function storeUserScore() {
+    $.ajax({
+        url: '/submit-score',
+        type: 'POST',
+        data: {
+            _token: CSRF_TOKEN,
+            score: score,
+            username: userInfo,
+        },
+        success: function (response) {
+            console.log(response);
         }
     });
 }
