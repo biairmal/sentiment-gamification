@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 
@@ -24,7 +23,7 @@
 <body>
     <!-- User Account -->
     <div class="user">
-        
+
         <div class="user-info">
             <button class="btn" id="toggle_popup" data-toggle="tooltip" data-placement="right" title="Click me"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill=#F73861 class="bi bi-person-circle" viewBox="0 0 16 16">
                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -32,6 +31,16 @@
                 </svg></button>
             @if (Auth::user() != null)
             <a>Welcome, {{Auth::user()->name}} !</a>
+            <div class="levelbar">
+                
+                <div class="levelbar-border">
+                    <div class="levelbar-percentage" style="--width:0">
+                        <div class="levelbar-userlevel">Level {{Auth::user()->level}}</div>
+                    </div>
+
+                </div>
+            </div>
+
             @endif
             <div class="popup-box">
                 @if (Auth::user() == null)
@@ -112,20 +121,19 @@
                         <th>Level</th>
                         <th>Total Score</th>
                     </tr>
-                    @for ($i=0; $i<count($leaderboard); $i++ )
-                    <tr>
+                    @for ($i=0; $i<count($leaderboard); $i++ ) <tr>
                         <td>{{$i+1}}</td>
                         <td>{{$leaderboard[$i]->name}}</td>
                         <td>{{$leaderboard[$i]->level}}</td>
                         <td>{{$leaderboard[$i]->total_points}}</td>
-                    </tr>
-                    @endfor
-                    
+                        </tr>
+                        @endfor
+
                 </table>
             </div>
         </div>
         @endif
-        
+
         <!-- End of Leaderboard -->
         <div class="sized-box"></div>
     </div>
