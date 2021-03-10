@@ -178,6 +178,8 @@
                     </svg></button>
             </div>
         </div>
+        <div class="sized-box"></div>
+        <div class="sized-box"></div>
 
     </div>
     <!-- End of Game -->
@@ -196,9 +198,9 @@
                 <a id="home_btn" class="btn button" href="{{url('/')}}">Back to Home</a>
             </div>
         </div>
-
-
-
+        <div class="sized-box"></div>
+        <div class="sized-box"></div>
+        <div class="sized-box"></div>
     </div>
     <!-- End of Post Game -->
 
