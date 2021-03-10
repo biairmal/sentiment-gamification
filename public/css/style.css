@@ -219,7 +219,7 @@ hr.hr-modified {
     display: inline-block;
 }
 
-.level {
+#level {
     font-size: 24px;
     font-weight: 700;
 }

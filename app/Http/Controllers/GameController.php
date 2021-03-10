@@ -45,17 +45,21 @@ class GameController extends Controller
     public function updateUserLevel($person)
     {
         $user = User::where('email', $person)->first();
-        $level = $user->level;
 
-        if ($user->level < $this->maxLevel) {
-            $temp = $user->total_points;
-            while ($temp > 300) {
-                $temp = $temp - $user->level * 300;
-                $level++;
+        $i = 0;
+        $level = 0;
+        $foundLevel = false;
+
+        for ($i; $foundLevel == false; $i++) {
+            $minScore = ($i) * 300;
+            $maxScore = ($i + 1) * 300;
+            if ($user->total_points >= $minScore && $user->total_points < $maxScore) {
+                $foundLevel = true;
+                $level = $i + 1;
             }
         }
 
-        if ($user->level != $level) {
+        if ($this->maxLevel != $level) {
             User::where('email', $person)->update(['level' => $level]);
         }
     }
