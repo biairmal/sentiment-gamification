@@ -12,6 +12,9 @@ use Exception;
 
 class GameController extends Controller
 {
+
+    public $maxLevel = 3;
+
     // home
     public function index()
     {
@@ -38,6 +41,26 @@ class GameController extends Controller
         }
     }
 
+    // update user level based on total points
+    public function updateUserLevel($person)
+    {
+        $user = User::where('email', $person)->first();
+        $level = $user->level;
+
+        if ($user->level < $this->maxLevel) {
+            $temp = $user->total_points;
+            while ($temp > 300) {
+                $temp = $temp - $user->level * 300;
+                $level++;
+            }
+        }
+
+        if ($user->level != $level) {
+            User::where('email', $person)->update(['level' => $level]);
+        }
+    }
+
+    // storing user game history
     public function submitScore(Request $request)
     {
         DB::beginTransaction();
@@ -48,16 +71,10 @@ class GameController extends Controller
             $score->save();
             DB::commit();
 
-            // cara 1
-            // if ($request->username != "anonymous@gmail.com") {
-            //     DB::table('users')
-            //         ->where('email','==',$request->username)
-            //         ->update(['total_points'=>DB::raw('total_points'+$request->score)]);
-            // }
-
-            $user = User::where('email',$request->username);
+            $user = User::where('email', $request->username);
             $user->increment('total_points', $request->score);
-            
+
+            $this->updateUserLevel($request->username);
             return response()->json($score);
         } catch (Exception $e) {
             DB::rollback();

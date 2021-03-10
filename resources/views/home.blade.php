@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 
@@ -24,7 +23,7 @@
 <body>
     <!-- User Account -->
     <div class="user">
-        
+
         <div class="user-info">
             <button class="btn" id="toggle_popup" data-toggle="tooltip" data-placement="right" title="Click me"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill=#F73861 class="bi bi-person-circle" viewBox="0 0 16 16">
                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -32,6 +31,23 @@
                 </svg></button>
             @if (Auth::user() != null)
             <a>Welcome, {{Auth::user()->name}} !</a>
+            <div class="levelbar">
+                @php
+                $barPercentage = 50;
+                if (Auth::user()->total_points >= 900){
+                $barPercentage = 100;
+                } else {
+                $barPercentage = (Auth::user()->total_points % 300) *100 / 300;
+                }
+                @endphp
+                <div class="levelbar-border">
+                    <div class="levelbar-percentage" style="--width:{{$barPercentage}}">
+                        <div class="levelbar-userlevel">Level {{Auth::user()->level}}</div>
+                    </div>
+
+                </div>
+            </div>
+
             @endif
             <div class="popup-box">
                 @if (Auth::user() == null)
@@ -112,20 +128,19 @@
                         <th>Level</th>
                         <th>Total Score</th>
                     </tr>
-                    @for ($i=0; $i<count($leaderboard); $i++ )
-                    <tr>
+                    @for ($i=0; $i<count($leaderboard); $i++ ) <tr>
                         <td>{{$i+1}}</td>
                         <td>{{$leaderboard[$i]->name}}</td>
                         <td>{{$leaderboard[$i]->level}}</td>
                         <td>{{$leaderboard[$i]->total_points}}</td>
-                    </tr>
-                    @endfor
-                    
+                        </tr>
+                        @endfor
+
                 </table>
             </div>
         </div>
         @endif
-        
+
         <!-- End of Leaderboard -->
         <div class="sized-box"></div>
     </div>
@@ -145,8 +160,18 @@
             <div id="question_number"></div>
             <div id="question"></div>
             <div class="answer-buttons">
-                <button id="ans_positive" class="btn btn-success">Positive</button>
-                <button id="ans_negative" class="btn btn-danger">Negative</button>
+                <button id="ans_positive" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-emoji-smile" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
+                    </svg></button>
+                <button id="ans_neutral" class="btn btn-light"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-emoji-neutral" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path d="M4 10.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5zm3-4C7 5.672 6.552 5 6 5s-1 .672-1 1.5S5.448 8 6 8s1-.672 1-1.5zm4 0c0-.828-.448-1.5-1-1.5s-1 .672-1 1.5S9.448 8 10 8s1-.672 1-1.5z" />
+                    </svg></button>
+                <button id="ans_negative" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-emoji-angry" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zm6.991-8.38a.5.5 0 1 1 .448.894l-1.009.504c.176.27.285.64.285 1.049 0 .828-.448 1.5-1 1.5s-1-.672-1-1.5c0-.247.04-.48.11-.686a.502.502 0 0 1 .166-.761l2-1zm-6.552 0a.5.5 0 0 0-.448.894l1.009.504A1.94 1.94 0 0 0 5 6.5C5 7.328 5.448 8 6 8s1-.672 1-1.5c0-.247-.04-.48-.11-.686a.502.502 0 0 0-.166-.761l-2-1z" />
+                    </svg></button>
             </div>
         </div>
 
