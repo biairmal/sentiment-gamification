@@ -8,7 +8,7 @@ const userLevelElement = document.getElementById('level');
 
 // ==== game variables ====
 const defaultCountdownTime = 0;
-const defaultGameTime = 60s;
+const defaultGameTime = 60;
 let time = defaultCountdownTime;
 let gameTime = defaultGameTime;
 let score = 0
