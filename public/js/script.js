@@ -4,10 +4,11 @@ const timerElement = document.getElementById('timer');
 const scoreElement = document.getElementById('score');
 const questionNumberElement = document.getElementById('question_number');
 const questionElement = document.getElementById('question');
+const userLevelElement = document.getElementById('level');
 
 // ==== game variables ====
-const defaultCountdownTime = 3;
-const defaultGameTime = 60;
+const defaultCountdownTime = 0;
+const defaultGameTime = 5;
 let time = defaultCountdownTime;
 let gameTime = defaultGameTime;
 let score = 0
@@ -20,6 +21,7 @@ let questionForCalibration = [];
 let tempShowedQuestion = [];
 let questionArray;
 let currentQuestionIndex;
+const levelTopics = ["Cyber Bullying", "Tayangan TV", "Politik"];
 
 // ==== user variables ====
 let user = null;
@@ -30,7 +32,6 @@ let calibrationScore = 0;
 
 // ==== button onclick function ====
 $("#start_btn").click(clickStart);
-// $("#home_btn").click(backToHome);
 $("#restart_btn").click(clickRestart);
 $(".answer-buttons button").click(answerQuestion);
 $("#toggle_popup").click(togglePopupBox);
@@ -126,6 +127,7 @@ function gameStarted() {
         $(".game").addClass("enabled");
         getUserLevel();
         getQuestionsBasedOnLevel();
+        userLevelElement.innerHTML = "Level "+userLevel+" : "+levelTopics[userLevel-1];
         showQuestion();
     }, 1000);
 }
