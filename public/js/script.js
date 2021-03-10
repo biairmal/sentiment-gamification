@@ -6,8 +6,8 @@ const questionNumberElement = document.getElementById('question_number');
 const questionElement = document.getElementById('question');
 
 // ==== game variables ====
-const defaultCountdownTime = 1;
-const defaultGameTime = 5;
+const defaultCountdownTime = 3;
+const defaultGameTime = 60;
 let time = defaultCountdownTime;
 let gameTime = defaultGameTime;
 let score = 0
@@ -177,6 +177,8 @@ function answerQuestion() {
         value = "positif";
     } else if (this.id == "ans_negative") {
         value = "negatif";
+    } else if (this.id == "ans_neutral") {
+        value = "neutral"
     }
     question_id = questionArray[currentQuestionIndex].id;
     if (questionNumber == 6) {
