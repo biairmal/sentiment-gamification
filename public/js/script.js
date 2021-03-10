@@ -7,8 +7,8 @@ const questionElement = document.getElementById('question');
 const userLevelElement = document.getElementById('level');
 
 // ==== game variables ====
-const defaultCountdownTime = 0;
-const defaultGameTime = 5;
+const defaultCountdownTime = 3;
+const defaultGameTime = 60;
 let time = defaultCountdownTime;
 let gameTime = defaultGameTime;
 let score = 0
