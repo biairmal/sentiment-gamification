@@ -119,7 +119,7 @@ function timer() {
 function gameStarted() {
     userInfo = (user != null) ? user.email : "anonymous@gmail.com";
     score = 0;
-    console.log(userInfo)
+    // console.log(userInfo)
     questionNumber = 1;
     timerInterval = setInterval(timer, 1000);
     setTimeout(function () {
@@ -185,10 +185,10 @@ function answerQuestion() {
     question_id = questionArray[currentQuestionIndex].id;
     if (questionNumber == 6) {
         checkCalibration();
-        console.log("userInputValid : " + userInputValid);
+        // console.log("userInputValid : " + userInputValid);
     }
     if (userInputValid == true) {
-        console.log("input valid");
+        // console.log("input valid");
         storeUserInput(question_id, value);
     }
     countScore(value, question_id);
@@ -216,8 +216,8 @@ function getQuestionsBasedOnLevel() {
             }
         }
     }
-    console.log(questionBasedOnLevel);
-    console.log(questionForCalibration);
+    // console.log(questionBasedOnLevel);
+    // console.log(questionForCalibration);
 }
 
 // to check if user answer the questions seriously
@@ -266,10 +266,10 @@ function storeUserInput(question_id, value) {
             username: userInfo,
         },
         success: function (response) {
-            console.log(response);
-            console.log(response.username);
-            console.log(response.value);
-            console.log(response.question_id);
+            // console.log(response);
+            // console.log(response.username);
+            // console.log(response.value);
+            // console.log(response.question_id);
         }
     });
 }
@@ -284,7 +284,7 @@ function storeUserScore() {
             username: userInfo,
         },
         success: function (response) {
-            console.log(response);
+            // console.log(response);
         }
     });
 }
