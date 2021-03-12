@@ -78,6 +78,7 @@ class GameController extends Controller
             $user = User::where('email', $request->username);
             $user->increment('total_points', $request->score);
 
+            if($request->username)
             $this->updateUserLevel($request->username);
             return response()->json($score);
         } catch (Exception $e) {

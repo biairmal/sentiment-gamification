@@ -17,7 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->id();
             $table->string('level');
             $table->string('question_type');
-            $table->string('question');
+            $table->longText('question');
             $table->string('correct_answer');
         });
     }

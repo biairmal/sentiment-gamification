@@ -91,24 +91,28 @@
                     <div class="col-lg">
                         <div class="box">
                             <div class="urutan">1</div>
+                            <img class="instruction-image" src="https://image.freepik.com/free-vector/big-book-with-yin-yang-taoism-family-reading-tiny-people-yin-yang-taoism-daoism-confucianism-taoism-chinese-philosophy-concept-pinkish-coral-bluevector-isolated-illustration_335657-1495.jpg">
                             <div class="cara">Baca dan pahami kalimat yang muncul pada layar anda</div>
                         </div>
                     </div>
                     <div class="col-lg">
                         <div class="box">
                             <div class="urutan">2</div>
+                            <img class="instruction-image" src="https://image.freepik.com/free-vector/couple-education-online-with-icons-illustration-design_24877-63617.jpg">
                             <div class="cara"> Tentukan apakah kalimat tersebut merupakan kalimat yang bersifat Negatif/Netral/Positif</div>
                         </div>
                     </div>
                     <div class="col-lg">
                         <div class="box">
                             <div class="urutan">3</div>
+                            <img class="instruction-image" src="https://image.freepik.com/free-vector/business-people-empolyee-choosing-new-career-direction-arrow-with-target_335657-3302.jpg">
                             <div class="cara">Pilih emoji yang sesuai dengan sifat kalimat tersebut</div>
                         </div>
                     </div>
                     <div class="col-lg">
                         <div class="box">
                             <div class="urutan">4</div>
+                            <img class="instruction-image" src="https://image.freepik.com/free-vector/busy-business-people-with-laptops-hurry-up-complete-tasks-huge-clock-hourglass-deadline-project-time-limit-task-due-dates-concept-illustration_335657-2072.jpg">
                             <div class="cara">Tentukan sebanyak-banyaknya dalam kurun waktu 1 menit</div>
                         </div>
                     </div>
