@@ -210,15 +210,15 @@ function getRandomIndex(questionArray) {
 function getQuestionsBasedOnLevel() {
     for (let i = 0; i < questionData.length; i++) {
         if (questionData[i].level == userLevel) {
-            if (questionData[i].question_type == "absolute_answer" && questionForCalibration.length <=5;) {
+            if (questionData[i].question_type == "absolute_answer") {
                 questionForCalibration.push(questionData[i]);
             } else {
                 questionBasedOnLevel.push(questionData[i]);
             }
         }
     }
-    console.log(questionBasedOnLevel.length);
-    console.log(questionForCalibration.length);
+    console.log(questionBasedOnLevel);
+    console.log(questionForCalibration);
 }
 
 // to check if user answer the questions seriously
