@@ -59,7 +59,7 @@ class GameController extends Controller
             }
         }
 
-        if ($this->maxLevel != $level) {
+        if ($this->maxLevel != $level && $level <= $this->maxLevel) {
             User::where('email', $person)->update(['level' => $level]);
         }
     }

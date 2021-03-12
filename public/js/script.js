@@ -8,7 +8,7 @@ const userLevelElement = document.getElementById('level');
 
 // ==== game variables ====
 const defaultCountdownTime = 3;
-const defaultGameTime = 60;
+const defaultGameTime = 5;
 let time = defaultCountdownTime;
 let gameTime = defaultGameTime;
 let score = 0;
@@ -217,8 +217,8 @@ function getQuestionsBasedOnLevel() {
             }
         }
     }
-    console.log(questionBasedOnLevel);
-    console.log(questionForCalibration);
+    console.log(questionBasedOnLevel.length);
+    console.log(questionForCalibration.length);
 }
 
 // to check if user answer the questions seriously
