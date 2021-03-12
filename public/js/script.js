@@ -11,7 +11,7 @@ const defaultCountdownTime = 3;
 const defaultGameTime = 60;
 let time = defaultCountdownTime;
 let gameTime = defaultGameTime;
-let score = 0
+let score = 0;
 let questionNumber = 1;
 
 // ==== question generator variables ====
@@ -43,10 +43,10 @@ $.ajaxSetup({
     }
 });
 
-
+// console.log(gameData);
 // parsing question data from database
 try {
-    gameData = gameData.replaceAll('&quot;', '\"');
+    gameData = gameData.replaceAll(`&quot;`, '\"');
     userData = userData.replaceAll('&quot;', '\"');
     questionData = Object.values(JSON.parse(gameData));
     user = JSON.parse(userData);
@@ -136,7 +136,7 @@ function gameFinished() {
     $(".postgame").addClass("enabled");
     $(".game").removeClass("enabled");
     scoreElement.innerHTML = `${score}`;
-    if (score > 0) {
+    if (score > 0 && userInfo != "anonymous@gmail.com") {
         storeUserScore();
     }
     score = 0;
@@ -158,10 +158,12 @@ function getUserLevel() {
 
 // ==== question generator ====
 async function showQuestion() {
-    if (questionNumber <= 5) {
+    if (questionNumber <= 5 || questionNumber % 2 == 1) {
         questionArray = questionForCalibration;
-    } else {
+        // console.log("absolute");
+    } else if (questionNumber % 2 == 0){
         questionArray = questionBasedOnLevel;
+        // console.log("unknown");
     }
     currentQuestionIndex = await getRandomIndex(questionArray);
     questionNumberElement.innerHTML = `Question ${questionNumber}`;
@@ -188,7 +190,6 @@ function answerQuestion() {
         // console.log("userInputValid : " + userInputValid);
     }
     if (userInputValid == true) {
-        // console.log("input valid");
         storeUserInput(question_id, value);
     }
     countScore(value, question_id);
