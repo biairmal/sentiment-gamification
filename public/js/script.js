@@ -217,8 +217,8 @@ function getQuestionsBasedOnLevel() {
             }
         }
     }
-    console.log(questionBasedOnLevel);
-    console.log(questionForCalibration);
+    console.log(questionBasedOnLevel.length);
+    console.log(questionForCalibration.length);
 }
 
 // to check if user answer the questions seriously
