@@ -82,7 +82,7 @@
             <div class="about">Sentiment analysis adalah proses memahami dan mengelompokkan emosi (positif, netral, dan negatif) yang terdapat dalam tulisan menggunakan teknik analisis teks.</div>
         </div>
         <!-- End of Game Info -->
-
+        
         <!-- How to Play -->
         <div class="how-to-play">
             <div class="text-title">Cara Bermain</div>
@@ -91,6 +91,7 @@
                     <div class="col-lg">
                         <div class="box">
                             <div class="urutan">1</div>
+                            
                             <img class="instruction-image" src="https://image.freepik.com/free-vector/big-book-with-yin-yang-taoism-family-reading-tiny-people-yin-yang-taoism-daoism-confucianism-taoism-chinese-philosophy-concept-pinkish-coral-bluevector-isolated-illustration_335657-1495.jpg">
                             <div class="cara">Baca dan pahami kalimat yang muncul pada layar anda</div>
                         </div>
