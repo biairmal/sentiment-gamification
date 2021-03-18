@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 
 // ==== home ====
 Route::get('/',[GameController::class,'index']);
-Route::get('/stats',[GameController::class,'userStats']);
+Route::get('/stats/{email}',[GameController::class,'userStats']);
 
 
 // ==== ajax ====
