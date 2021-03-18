@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
     <!-- CSS File -->
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('/css/style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" />
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="https://images.glints.com/unsafe/glints-dashboard.s3.amazonaws.com/company-logo/4203d46dc2af93a8acf56a10c285dba3.png" />
