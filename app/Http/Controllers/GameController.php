@@ -23,6 +23,11 @@ class GameController extends Controller
         return view('home', compact('questions', 'leaderboard'));
     }
 
+    public function userStats(){
+        // isi nama filenya dalem view
+        return view();
+    }
+
     // storing answer from user input
     public function submitAnswer(Request $request)
     {
