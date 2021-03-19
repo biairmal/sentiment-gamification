@@ -18,11 +18,12 @@ use Illuminate\Http\Request;
 
 // ==== home ====
 Route::get('/',[GameController::class,'index']);
-Route::get('/stats/{email}',[GameController::class,'userStats']);
+Route::get('/stats/{email}',[GameController::class,'userStats'])->name('stats');
 
 
 // ==== ajax ====
 Route::get('/question', 'GameController@index');
+Route::get('/fetch-user', [GameController::class,'getUserData']);
 Route::post('/answer', [GameController::class,'submitAnswer'])->name('answer.add');
 Route::post('/submit-score', [GameController::class,'submitScore'])->name('score.add');
 

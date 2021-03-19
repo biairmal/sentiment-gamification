@@ -5,15 +5,16 @@ const scoreElement = document.getElementById('score');
 const questionNumberElement = document.getElementById('question_number');
 const questionElement = document.getElementById('question');
 const userLevelElement = document.getElementById('level');
+const postgameTextElement = document.getElementById('postgame_text');
 
 // GAME VARIABLES
 const defaultCountdownTime = 3;
-const defaultGameTime = 60;
+const defaultGameTime = 15;
 let countdownTime, gameTime, score, questionNumber, gameOver, lives;
 
 // QUESTION GENERATOR VARIABLES
 let questionData = null;
-let questionBasedOnLevel, questionForCalibration, tempShowedQuestion, questionArray, currentQuestionIndex;
+let questionUnknown, questionAbsolute, tempShowedQuestion, questionArray, currentQuestionIndex;
 const levelTopics = ["Cyber Bullying", "Tayangan TV", "Politik"];
 
 // USER VARIABLES
@@ -22,10 +23,12 @@ let userInfo, userInputValid, calibrationScore;
 let userLevel = 1;
 
 // BUTTON ONCLICK FUNCTIONS
-$("#start_btn").click(clickStart);
-$("#restart_btn").click(clickRestart);
-$(".answer-buttons button").click(answerQuestion);
-$("#toggle_popup").click(togglePopupBox);
+$(document).ready(function () {
+    $("#start_btn").click(clickStart);
+    $("#restart_btn").click(clickRestart);
+    $(".answer-buttons button").click(answerQuestion);
+    $("#toggle_popup").click(togglePopupBox);
+});
 
 // X-CSRF TOKEN
 $.ajaxSetup({
@@ -50,12 +53,13 @@ try {
 function initiateVariables() {
     countElement.innerHTML = "";
     timerElement.innerHTML = "";
+    postgameTextElement.innerHTML = "Horaaay selamat! Anda telah menyelesaikan game ini. Apakah ingin lanjut bermain?";
     countdownTime = defaultCountdownTime;
     gameTime = defaultGameTime;
     score = 0;
     questionNumber = 1;
-    questionBasedOnLevel = [];
-    questionForCalibration = [];
+    questionUnknown = [];
+    questionAbsolute = [];
     tempShowedQuestion = [];
     userInputValid = false;
     lives = 3;
@@ -70,12 +74,10 @@ function togglePopupBox() {
 }
 // ==== game navigation ====
 function clickStart() {
-    $(document).ready(function () {
-        initiateVariables();
-        $(".pregame").addClass("disabled");
-        $("#countdown").addClass("enabled");
-        countInterval = setInterval(countdown, 1000);
-    });
+    initiateVariables();
+    $(".pregame").addClass("disabled");
+    $("#countdown").addClass("enabled");
+    countInterval = setInterval(countdown, 1000);
 }
 
 function clickRestart() {
@@ -137,9 +139,13 @@ function gameStarted() {
 }
 
 function gameFinished() {
+    if (gameOver) {
+        postgameTextElement.innerHTML = "Game Over :( Nyawa anda habis karena salah saat menjawab soal kalibrasi yang dikeluarkan di waktu yang acak. Apakah ingin bermain lagi?";
+    }
     $(".postgame").addClass("enabled");
     $(".game").removeClass("enabled");
     scoreElement.innerHTML = `${score}`;
+    fetchUserData();
     if (score > 0 && userInfo != "anonymous@gmail.com") {
         storeUserScore();
     }
@@ -154,13 +160,11 @@ function getUserLevel() {
 // QUESTION GENERATOR
 async function showQuestion() {
     if (questionNumber <= 5 || questionNumber % 2 == 1) {
-        questionArray = questionForCalibration;
-        console.log("type absolute");
+        questionArray = questionAbsolute;
     } else if (questionNumber % 2 == 0) {
-        questionArray = questionBasedOnLevel;
-        console.log("type unknown");
+        questionArray = questionUnknown;
     }
-    console.log("lives : "+lives);
+    console.log("lives : " + lives);
     currentQuestionIndex = await getRandomIndex(questionArray);
     questionNumberElement.innerHTML = `Question ${questionNumber}`;
     questionElement.innerHTML = questionArray[currentQuestionIndex].question;
@@ -189,8 +193,8 @@ function answerQuestion() {
         storeUserInput(question_id, value);
     }
     // questionArray.splice(currentQuestionIndex,1);
-    // console.log(questionForCalibration.length);
-    // console.log(questionBasedOnLevel.length);
+    // console.log(questionAbsolute.length);
+    // console.log(questionUnknown.length);
     countScore(value, question_id);
     nextQuestion();
 }
@@ -210,14 +214,14 @@ function getQuestionsBasedOnLevel() {
     for (let i = 0; i < questionData.length; i++) {
         if (questionData[i].level == userLevel) {
             if (questionData[i].question_type == "absolute_answer") {
-                questionForCalibration.push(questionData[i]);
+                questionAbsolute.push(questionData[i]);
             } else {
-                questionBasedOnLevel.push(questionData[i]);
+                questionUnknown.push(questionData[i]);
             }
         }
     }
-    // console.log(questionBasedOnLevel.length);
-    // console.log(questionForCalibration.length);
+    // console.log(questionUnknown.length);
+    // console.log(questionAbsolute.length);
 }
 
 // to check if user answer the questions seriously
@@ -226,12 +230,12 @@ function checkCalibration() {
 }
 
 // SCORING SYSTEM
-function countLives(){
-    if (questionNumber > 5 && (questionNumber-5) % 4 == 0){
+function countLives() {
+    if (questionNumber > 5 && (questionNumber - 5) % 4 == 0) {
         if (lives > 0) {
             lives--;
         }
-        if (lives == 0 ) {
+        if (lives == 0) {
             gameOver = true;
             gameFinished();
         }
@@ -281,6 +285,20 @@ function storeUserScore() {
         },
         success: function (response) {
             // console.log(response);
+        }
+    });
+}
+
+function fetchUserData() {
+    $.ajax({
+        url: '/fetch-user',
+        type: 'GET',
+        data: {
+            _token: CSRF_TOKEN,
+            email: userInfo,
+        },
+        success: function (response) {
+            console.log(response);
         }
     });
 }

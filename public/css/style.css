@@ -82,6 +82,7 @@ hr.hr-modified {
 .popup-box {
     position: absolute;
     bottom: 0;
+    left: 30px;
     padding: 10px;
     border-radius: 10px;
     background: #ffffff;
@@ -94,6 +95,7 @@ hr.hr-modified {
 }
 
 .user {
+    position: relative;
     font-size: 14px;
     font-weight: 500;
 }
@@ -105,10 +107,12 @@ hr.hr-modified {
     background-color: #F73861;
     color: #FFFFFF;
     text-align: center;
-    min-width: 80px;
+    width: 80px;
     transition: all 0.5s;
     cursor: pointer;
     font-size: 14px;
+    display: inline;
+    margin: 0 0px 0 0px;
 }
 
 

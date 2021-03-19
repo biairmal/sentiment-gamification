@@ -27,7 +27,13 @@ class GameController extends Controller
     {
         $recentMatches = Scores::where('username', $user)->orderBy('created_at','DESC')->get();
         // isi nama filenya dalem view
-        return $recentMatches;
+        return view('profile', compact('recentMatches'));
+    }
+
+    public function getUserData(Request $request)
+    {
+        $userData = User::where('email',$request->email)->get();
+        return response()->json($userData);
     }
 
     // storing answer from user input

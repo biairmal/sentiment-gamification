@@ -45,13 +45,15 @@
                 @endphp
                 <div class="levelbar-border">
                     <div class="levelbar-percentage" style="--width:{{$barPercentage}}">
-                        <div class="levelbar-userlevel">Level {{Auth::user()->level}}</div>
+                        <div class="levelbar-percentage">
+                            <div class="levelbar-userlevel">Level {{Auth::user()->level}}</div>
+                        </div>
+
                     </div>
-
                 </div>
-            </div>
 
-            @endif
+                @endif
+            </div>
             <div class="popup-box">
                 @if (Auth::user() == null)
 
@@ -63,11 +65,13 @@
                 </a>
 
                 @else
+                <a class="btn user-button" href="{{ route('stats',Auth::user()->email) }}">My Stats</a>
                 <a class="btn user-button" href="{{ url('logout') }}">Logout</a>
                 @endif
             </div>
-        </div>
 
+
+        </div>
     </div>
 
     <!-- End of User Account -->
@@ -82,7 +86,7 @@
             <div class="about">Sentiment analysis adalah proses memahami dan mengelompokkan emosi (positif, netral, dan negatif) yang terdapat dalam tulisan menggunakan teknik analisis teks.</div>
         </div>
         <!-- End of Game Info -->
-        
+
         <!-- How to Play -->
         <div class="how-to-play">
             <div class="text-title">Cara Bermain</div>
@@ -91,7 +95,7 @@
                     <div class="col-lg">
                         <div class="box">
                             <div class="urutan">1</div>
-                            
+
                             <img class="instruction-image" src="https://image.freepik.com/free-vector/big-book-with-yin-yang-taoism-family-reading-tiny-people-yin-yang-taoism-daoism-confucianism-taoism-chinese-philosophy-concept-pinkish-coral-bluevector-isolated-illustration_335657-1495.jpg">
                             <div class="cara">Baca dan pahami kalimat yang muncul pada layar anda</div>
                         </div>
@@ -194,10 +198,10 @@
         <div class="score-box">
             <div class="text-title inline">
                 Total Score Anda :
-                <div id="score" class="text-title inline">50</div>
+                <div id="score" class="text-title inline"></div>
             </div>
             <hr class="col-2 hr-modified">
-            <div class="postgame-text">Horaaay! Anda telah menyelesaikan game ini. Apakah ingin lanjut bermain?</div>
+            <div id="postgame_text" class="postgame-text"></div>
             <div class="postgame-buttons">
                 <button id="restart_btn" class="btn button"><span>Play Again</span></button>
                 <a id="home_btn" class="btn button" href="{{url('/')}}">Back to Home</a>
