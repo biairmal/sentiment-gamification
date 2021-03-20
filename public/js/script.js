@@ -73,6 +73,7 @@ function togglePopupBox() {
 // ==== game navigation ====
 function clickStart() {
     initiateVariables()
+    fetchUserData()
     $(".pregame").addClass("disabled")
     $("#countdown").addClass("enabled")
     countInterval = setInterval(countdown, 1000)
@@ -121,7 +122,7 @@ function timer() {
 // GAME STATE
 function gameStarted() {
     getUserLevel()
-    getQuestionsBasedOnLevel()
+    getQuestionsForUser()
     timerInterval = setInterval(timer, 1000)
     setTimeout(function () {
         $("#countdown").removeClass("enabled")
@@ -140,7 +141,6 @@ function gameFinished() {
     $(".postgame").addClass("enabled")
     $(".game").removeClass("enabled")
     scoreElement.innerHTML = `${score}`
-    fetchUserData()
     if (score > 0 && userInfo != "anonymous@gmail.com") {
         storeUserScore()
     }
@@ -156,19 +156,17 @@ function getUserLevel() {
 
 
 // QUESTION GENERATOR
-async function showQuestion() {
+function showQuestion() {
     if (questionAbsolute.length != 0 || questionUnknown.length != 0) {
         if (questionNumber <= 5 || questionNumber % 2 == 1) {
             questionArray = (questionAbsolute.length > 0) ? questionAbsolute : questionUnknown
         } else if (questionNumber % 2 == 0) {
             questionArray = (questionUnknown.length > 0) ? questionUnknown : questionAbsolute
         }
-        console.log("lives : " + lives)
-        currentQuestionIndex = await getRandomIndex(questionArray)
+        currentQuestionIndex = getRandomIndex(questionArray)
         questionNumberElement.innerHTML = `Question ${questionNumber}`
         questionElement.innerHTML = questionArray[currentQuestionIndex].question
     } else {
-        console.log("Masuk")
         noMoreQuestionInThisLevel = true
         gameFinished()
     }
@@ -191,7 +189,6 @@ function answerQuestion() {
     question_id = questionArray[currentQuestionIndex].id
     if (questionNumber == 6) {
         checkCalibration()
-        console.log("userInputValid : " + userInputValid)
     }
     if (userInputValid == true) {
         storeUserInput(question_id, value)
@@ -207,18 +204,34 @@ function getRandomIndex(questionArray) {
     return randomIndex
 }
 
-function getQuestionsBasedOnLevel() {
-    for (let i = 0 ;i < questionData.length ;i++) {
-        if (questionData[i].level == userLevel) {
-            if (questionData[i].question_type == "absolute_answer") {
-                questionAbsolute.push(questionData[i])
+function getQuestionsForUser() {
+    let questionDataUnanswered = []
+    let questionDataAnswered = []
+    let questionAbsoluteLower = []
+    let questionUnknownLower = []
+    for (let i = 0; i < questionData.length; i++) {
+        if (tempAnsweredQuestion.includes(questionData[i].id) == false) {
+            questionDataUnanswered.push(questionData[i]);
+        } else {
+            questionDataAnswered.push(questionData[i].id)
+        }
+    }
+    for (let i = 0; i < questionDataUnanswered.length; i++) {
+        if (questionDataUnanswered[i].level == userLevel) {
+            if (questionDataUnanswered[i].question_type == "absolute_answer") {
+                questionAbsolute.push(questionDataUnanswered[i])
             } else {
-                questionUnknown.push(questionData[i])
+                questionUnknown.push(questionDataUnanswered[i])
+            }
+        } else if (questionDataUnanswered[i].level < userLevel){
+            if (questionDataUnanswered[i].question_type == "absolute_answer") {
+                questionAbsoluteLower.push(questionDataUnanswered[i])
+            } else {
+                questionUnknownLower.push(questionDataUnanswered[i])
             }
         }
     }
-    // console.log(questionUnknown.length)
-    // console.log(questionAbsolute.length)
+    console.log(questionAbsoluteLower)
 }
 
 // to check if user answer the questions seriously
@@ -265,9 +278,6 @@ function storeUserInput(question_id, value) {
             value: value,
             username: userInfo,
         },
-        success: function (response) {
-            // console.log(response)
-        }
     })
 }
 
@@ -281,26 +291,18 @@ function storeUserScore() {
             username: userInfo,
             total_answers: questionNumber,
         },
-        success: function (response) {
-            // console.log(response)
-        }
     })
 }
 
 function storeAnsweredQuestion() {
-    console.log(tempAnsweredQuestion)
-    console.log(JSON.stringify(tempAnsweredQuestion))
     $.ajax({
         url: '/submit-answered-questions',
         type: 'POST',
         data: {
             _token: CSRF_TOKEN,
-            email : userInfo,
+            email: userInfo,
             answered_questions: JSON.stringify(tempAnsweredQuestion),
         },
-        success: function (response) {
-            // console.log(response)
-        }
     })
 }
 
@@ -313,7 +315,11 @@ function fetchUserData() {
             email: userInfo,
         },
         success: function (response) {
-            // console.log(response)
+            try {
+                tempAnsweredQuestion = JSON.parse(response[0].answered_questions)
+            } catch {
+                tempAnsweredQuestion = []
+            }
         }
     })
 }
