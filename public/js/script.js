@@ -223,7 +223,7 @@ function getQuestionsForUser() {
             } else {
                 questionUnknown.push(questionDataUnanswered[i])
             }
-        } else if (questionDataUnanswered[i].level < userLevel){
+        } else if (questionDataUnanswered[i].level < userLevel) {
             if (questionDataUnanswered[i].question_type == "absolute_answer") {
                 questionAbsoluteLower.push(questionDataUnanswered[i])
             } else {
