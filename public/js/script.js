@@ -9,12 +9,12 @@ const postgameTextElement = document.getElementById('postgame_text');
 
 // GAME VARIABLES
 const defaultCountdownTime = 3;
-const defaultGameTime = 15;
+const defaultGameTime = 60;
 let countdownTime, gameTime, score, questionNumber, gameOver, lives;
 
 // QUESTION GENERATOR VARIABLES
 let questionData = null;
-let questionUnknown, questionAbsolute, tempShowedQuestion, questionArray, currentQuestionIndex;
+let questionUnknown, questionAbsolute, tempShowedQuestion, questionArray, currentQuestionIndex, noMoreQuestionInThisLevel;
 const levelTopics = ["Cyber Bullying", "Tayangan TV", "Politik"];
 
 // USER VARIABLES
@@ -64,6 +64,7 @@ function initiateVariables() {
     userInputValid = false;
     lives = 3;
     gameOver = false;
+    noMoreQuestionInThisLevel = false;
     calibrationScore = 0;
     userInfo = (user != null) ? user.email : "anonymous@gmail.com";
     // console.log(userInfo)
@@ -120,7 +121,7 @@ function timer() {
         clearInterval(timerInterval);
         gameFinished();
         gameTime = defaultGameTime;
-    } else if (gameOver == true) {
+    } else if (gameOver == true || noMoreQuestionInThisLevel == true) {
         gameTime = 0;
     }
 }
@@ -139,8 +140,10 @@ function gameStarted() {
 }
 
 function gameFinished() {
-    if (gameOver) {
+    if (gameOver == true) {
         postgameTextElement.innerHTML = "Game Over :( Nyawa anda habis karena salah saat menjawab soal kalibrasi yang dikeluarkan di waktu yang acak. Apakah ingin bermain lagi?";
+    } else if (noMoreQuestionInThisLevel == true) {
+        postgameTextElement.innerHTML = "Soal telah habis, apakah anda ingin menyelesaikan soal yang ada di level sebelumnya?";
     }
     $(".postgame").addClass("enabled");
     $(".game").removeClass("enabled");
@@ -159,15 +162,21 @@ function getUserLevel() {
 
 // QUESTION GENERATOR
 async function showQuestion() {
-    if (questionNumber <= 5 || questionNumber % 2 == 1) {
-        questionArray = questionAbsolute;
-    } else if (questionNumber % 2 == 0) {
-        questionArray = questionUnknown;
+    if (questionAbsolute.length != 0 || questionUnknown.length != 0) {
+        if (questionNumber <= 5 || questionNumber % 2 == 1) {
+            questionArray = (questionAbsolute.length > 0) ? questionAbsolute : questionUnknown;
+        } else if (questionNumber % 2 == 0) {
+            questionArray = (questionUnknown.length > 0) ? questionUnknown : questionAbsolute;
+        }
+        console.log("lives : " + lives);
+        currentQuestionIndex = await getRandomIndex(questionArray);
+        questionNumberElement.innerHTML = `Question ${questionNumber}`;
+        questionElement.innerHTML = questionArray[currentQuestionIndex].question;
+    } else {
+        console.log("Masuk")
+        noMoreQuestionInThisLevel = true;
+        gameFinished();
     }
-    console.log("lives : " + lives);
-    currentQuestionIndex = await getRandomIndex(questionArray);
-    questionNumberElement.innerHTML = `Question ${questionNumber}`;
-    questionElement.innerHTML = questionArray[currentQuestionIndex].question;
 }
 
 function nextQuestion() {
@@ -192,10 +201,10 @@ function answerQuestion() {
     if (userInputValid == true) {
         storeUserInput(question_id, value);
     }
-    // questionArray.splice(currentQuestionIndex,1);
-    // console.log(questionAbsolute.length);
-    // console.log(questionUnknown.length);
     countScore(value, question_id);
+    questionArray.splice(currentQuestionIndex, 1);
+    console.log(questionAbsolute.length);
+    console.log(questionUnknown.length);
     nextQuestion();
 }
 
@@ -203,11 +212,12 @@ function getRandomIndex(questionArray) {
     // randomIndex = Math.floor(Math.random() * (max - min + 1) + min);
     // max index = questionData.length - 1; min index = 0
     randomIndex = Math.floor(Math.random() * (questionArray.length));
-    if (tempShowedQuestion.indexOf(randomIndex == -1)) {
-        tempShowedQuestion.push(randomIndex);
-        return randomIndex;
-    }
-    return getRandomIndex();
+    return randomIndex;
+    // if (tempShowedQuestion.indexOf(randomIndex == -1)) {
+    //     tempShowedQuestion.push(randomIndex);
+    //     return randomIndex;
+    // }
+    // return getRandomIndex();
 }
 
 function getQuestionsBasedOnLevel() {
@@ -282,6 +292,7 @@ function storeUserScore() {
             _token: CSRF_TOKEN,
             score: score,
             username: userInfo,
+            total_answers: questionNumber,
         },
         success: function (response) {
             // console.log(response);

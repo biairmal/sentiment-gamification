@@ -2,6 +2,12 @@
 
 body {
     font-weight: 400;
+    padding: 30px 30px 30px 30px;
+    user-select: none; /* supported by Chrome and Opera */
+   -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+   -moz-user-select: none; /* Firefox */
+   -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
 hr.hr-modified {
@@ -18,7 +24,6 @@ hr.hr-modified {
 .text-title {
     font-size: 36px;
     font-weight: bold;
-    margin: 0 30px 0 30px;
 }
 
 .instruction-image {
@@ -69,12 +74,11 @@ hr.hr-modified {
 }
 
 .sized-box {
-    height: 200px;
+    height: var(--width,0);
 }
 
 .user-info {
     position: relative;
-    margin: 30px 0 0 30px;
     width: 400px;
     height: 100px;
 }
@@ -82,7 +86,6 @@ hr.hr-modified {
 .popup-box {
     position: absolute;
     bottom: 0;
-    left: 30px;
     padding: 10px;
     border-radius: 10px;
     background: #ffffff;
@@ -164,7 +167,6 @@ hr.hr-modified {
 
 .pregame {
     width: 100%;
-    margin-top: 30px;
     text-align: center;
 }
 
@@ -178,7 +180,6 @@ hr.hr-modified {
 
 .box {
     position: relative;
-    margin-top: 30px;
     margin: 30px 10px 0px 10px;
     padding: 20px;
     height: 240px;
@@ -205,7 +206,7 @@ hr.hr-modified {
 }
 
 .leaderboard {
-    margin: 100px 50px 30px 50px;
+    margin: 100px 20px 30px 20px;
 }
 
 .leaderboard-table {
@@ -225,7 +226,7 @@ hr.hr-modified {
     width: 100%;
     text-align: center;
     display: none;
-    padding: 20px 50px 0 50px;
+    padding: 0 20px 0 20px;
 }
 
 .game.enabled {
@@ -307,7 +308,6 @@ hr.hr-modified {
 .postgame {
     width: 100%;
     text-align: center;
-    padding: 0 30px 0 30px;
     display: none;
     /* background-color: aqua; */
 }
@@ -350,3 +350,20 @@ hr.hr-modified {
 }
 
 /* End of Post Game Section */
+
+.recent-match {
+    margin: 30px auto 30px auto;
+}
+
+.profile {
+    margin: 30px auto 30px auto;
+}
+
+.profile-table {
+    border-spacing: 20px 0;
+    border-collapse: separate;
+}
+
+.profile-table td {
+    width: 180px;
+}

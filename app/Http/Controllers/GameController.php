@@ -85,6 +85,7 @@ class GameController extends Controller
             $score = new Scores();
             $score->username = $request->username;
             $score->score = $request->score;
+            $score->total_answers = $request->total_answers;
             $score->save();
             DB::commit();
 

@@ -19,8 +19,8 @@ class CreateScoresTable extends Migration
             // $table->string('username')->index();
             // $table->foreign('username')->references('username')->on('users');
             $table->bigInteger('score');
+            $table->bigInteger('total_answers');
             $table->timestamps();
-            
         });
     }
 
