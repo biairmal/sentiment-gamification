@@ -54,6 +54,18 @@ class GameController extends Controller
         }
     }
 
+    public function submitAnsweredQuestions(Request $request)
+    {
+        $user = $request->email;
+        $answeredQuestion = $request->answered_questions;
+
+        try{
+            User::where('email', $user)->update(['answered_questions' => $answeredQuestion]);
+        } catch (Exception $e){
+            return $e;
+        }
+    }
+
     // update user level based on total points
     public function updateUserLevel($person)
     {

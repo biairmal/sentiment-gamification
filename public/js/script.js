@@ -8,27 +8,19 @@ const userLevelElement = document.getElementById('level');
 const postgameTextElement = document.getElementById('postgame_text');
 
 // GAME VARIABLES
-const defaultCountdownTime = 3;
-const defaultGameTime = 60;
+const defaultCountdownTime = 0;
+const defaultGameTime = 10;
 let countdownTime, gameTime, score, questionNumber, gameOver, lives;
 
 // QUESTION GENERATOR VARIABLES
 let questionData = null;
-let questionUnknown, questionAbsolute, tempShowedQuestion, questionArray, currentQuestionIndex, noMoreQuestionInThisLevel;
+let questionUnknown, questionAbsolute, tempAnsweredQuestion, questionArray, currentQuestionIndex, noMoreQuestionInThisLevel;
 const levelTopics = ["Cyber Bullying", "Tayangan TV", "Politik"];
 
 // USER VARIABLES
 let user = null;
 let userInfo, userInputValid, calibrationScore;
 let userLevel = 1;
-
-// BUTTON ONCLICK FUNCTIONS
-$(document).ready(function () {
-    $("#start_btn").click(clickStart);
-    $("#restart_btn").click(clickRestart);
-    $(".answer-buttons button").click(answerQuestion);
-    $("#toggle_popup").click(togglePopupBox);
-});
 
 // X-CSRF TOKEN
 $.ajaxSetup({
@@ -37,18 +29,24 @@ $.ajaxSetup({
     }
 });
 
-// console.log(gameData);
-// parsing question data from database
-try {
-    gameData = gameData.replaceAll(`&quot;`, '\"');
-    userData = userData.replaceAll('&quot;', '\"');
-    questionData = Object.values(JSON.parse(gameData));
-    user = JSON.parse(userData);
-} catch (e) {
-    questionData = Object.values(gameData);
-    user = userData;
-    console.log(e);
-}
+$(document).ready(function () {
+    // BUTTON ONCLICK FUNCTIONS
+    $("#start_btn").click(clickStart);
+    $("#restart_btn").click(clickRestart);
+    $(".answer-buttons button").click(answerQuestion);
+    $("#toggle_popup").click(togglePopupBox);
+    // PARSING QUESTION AND USER DATA FROM DATABASE
+    try {
+        gameData = gameData.replaceAll(`&quot;`, '\"');
+        userData = userData.replaceAll('&quot;', '\"');
+        questionData = Object.values(JSON.parse(gameData));
+        user = JSON.parse(userData);
+    } catch (e) {
+        questionData = Object.values(gameData);
+        user = userData;
+        console.log(e);
+    }
+});
 
 function initiateVariables() {
     countElement.innerHTML = "";
@@ -56,18 +54,17 @@ function initiateVariables() {
     postgameTextElement.innerHTML = "Horaaay selamat! Anda telah menyelesaikan game ini. Apakah ingin lanjut bermain?";
     countdownTime = defaultCountdownTime;
     gameTime = defaultGameTime;
-    score = 0;
-    questionNumber = 1;
+    userInfo = (user != null) ? user.email : "anonymous@gmail.com";
     questionUnknown = [];
     questionAbsolute = [];
-    tempShowedQuestion = [];
-    userInputValid = false;
+    tempAnsweredQuestion = [];
+    score = 0;
+    questionNumber = 1;
     lives = 3;
+    calibrationScore = 0;
+    userInputValid = false;
     gameOver = false;
     noMoreQuestionInThisLevel = false;
-    calibrationScore = 0;
-    userInfo = (user != null) ? user.email : "anonymous@gmail.com";
-    // console.log(userInfo)
 }
 
 function togglePopupBox() {
@@ -152,6 +149,9 @@ function gameFinished() {
     if (score > 0 && userInfo != "anonymous@gmail.com") {
         storeUserScore();
     }
+    if (userInputValid == true && userInfo != "anonymous@gmail.com") {
+        storeAnsweredQuestion();
+    }
 }
 
 function getUserLevel() {
@@ -196,28 +196,20 @@ function answerQuestion() {
     question_id = questionArray[currentQuestionIndex].id;
     if (questionNumber == 6) {
         checkCalibration();
-        // console.log("userInputValid : " + userInputValid);
+        console.log("userInputValid : " + userInputValid);
     }
     if (userInputValid == true) {
         storeUserInput(question_id, value);
     }
+    tempAnsweredQuestion.push(question_id);
     countScore(value, question_id);
     questionArray.splice(currentQuestionIndex, 1);
-    console.log(questionAbsolute.length);
-    console.log(questionUnknown.length);
     nextQuestion();
 }
 
 function getRandomIndex(questionArray) {
-    // randomIndex = Math.floor(Math.random() * (max - min + 1) + min);
-    // max index = questionData.length - 1; min index = 0
     randomIndex = Math.floor(Math.random() * (questionArray.length));
     return randomIndex;
-    // if (tempShowedQuestion.indexOf(randomIndex == -1)) {
-    //     tempShowedQuestion.push(randomIndex);
-    //     return randomIndex;
-    // }
-    // return getRandomIndex();
 }
 
 function getQuestionsBasedOnLevel() {
@@ -300,6 +292,23 @@ function storeUserScore() {
     });
 }
 
+function storeAnsweredQuestion() {
+    console.log(tempAnsweredQuestion);
+    console.log(JSON.stringify(tempAnsweredQuestion));
+    $.ajax({
+        url: '/submit-answered-questions',
+        type: 'POST',
+        data: {
+            _token: CSRF_TOKEN,
+            email : userInfo,
+            answered_questions: JSON.stringify(tempAnsweredQuestion),
+        },
+        success: function (response) {
+            // console.log(response);
+        }
+    });
+}
+
 function fetchUserData() {
     $.ajax({
         url: '/fetch-user',
@@ -309,7 +318,7 @@ function fetchUserData() {
             email: userInfo,
         },
         success: function (response) {
-            console.log(response);
+            // console.log(response);
         }
     });
 }
