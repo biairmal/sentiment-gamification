@@ -9,18 +9,23 @@ const postgameTextElement = document.getElementById('postgame_text')
 
 // GAME VARIABLES
 const defaultCountdownTime = 0
-const defaultGameTime = 10
-let countdownTime, gameTime, score, questionNumber, gameOver, lives
+const defaultGameTime = 60
+let countdownTime, gameTime, score, questionNumber, lives // int
+let gameOver // bool
 
 // QUESTION GENERATOR VARIABLES
-let questionData = null
-let questionUnknown, questionAbsolute, tempAnsweredQuestion, questionArray, currentQuestionIndex, noMoreQuestionInThisLevel
+let questionData = null // array
+let tempAnsweredQuestion, questionArray, questionDataAnswered, questionDataUnanswered // array
+let questionThisLevelUnknown, questionThisLevelAbsolute, questionLowerLevelAbsolute, questionLowerLevelUnknown, questionForCalibration // array
+let currentQuestionIndex // int
+let noMoreQuestion // bool
 const levelTopics = ["Cyber Bullying", "Tayangan TV", "Politik"]
 
 // USER VARIABLES
-let user = null
-let userInfo, userInputValid, calibrationScore
-let userLevel = 1
+let userEmail // string
+let thisUser // object
+let userInputValid // bool
+let calibrationScore, userLevel // int
 
 // X-CSRF TOKEN
 $.ajaxSetup({
@@ -36,6 +41,7 @@ $(document).ready(function () {
     $(".answer-buttons button").click(answerQuestion)
     $("#toggle_popup").click(togglePopupBox)
     // PARSING QUESTION AND USER DATA FROM DATABASE
+    let user
     try {
         gameData = gameData.replaceAll(`&quot;`, '\"')
         userData = userData.replaceAll('&quot;', '\"')
@@ -46,34 +52,17 @@ $(document).ready(function () {
         user = userData
         console.log(e)
     }
+    userEmail = (user != null) ? user.email : "anonymous@gmail.com"
 })
 
-function initiateVariables() {
-    countElement.innerHTML = ""
-    timerElement.innerHTML = ""
-    postgameTextElement.innerHTML = "Horaaay selamat! Anda telah menyelesaikan game ini. Apakah ingin lanjut bermain?"
-    countdownTime = defaultCountdownTime
-    gameTime = defaultGameTime
-    userInfo = (user != null) ? user.email : "anonymous@gmail.com"
-    questionUnknown = []
-    questionAbsolute = []
-    tempAnsweredQuestion = []
-    score = 0
-    questionNumber = 1
-    lives = 3
-    calibrationScore = 0
-    userInputValid = false
-    gameOver = false
-    noMoreQuestionInThisLevel = false
-}
-
+// GAME NAVIGATION
 function togglePopupBox() {
     $(".popup-box").fadeToggle("popup-box")
 }
-// ==== game navigation ====
+
 function clickStart() {
-    initiateVariables()
     fetchUserData()
+    assignVariables()
     $(".pregame").addClass("disabled")
     $("#countdown").addClass("enabled")
     countInterval = setInterval(countdown, 1000)
@@ -104,6 +93,9 @@ function timer() {
     let seconds = gameTime % 60
     // minutes = minutes < 10 ? '0' + minutes : minutes
     seconds = seconds < 10 ? '0' + seconds : seconds
+    if (gameOver == true || noMoreQuestion == true) {
+        gameTime = -1
+    }
     if (gameTime >= 0) {
         timerElement.innerHTML = `${minutes}:${seconds}`
         gameTime = gameTime
@@ -114,9 +106,31 @@ function timer() {
         clearInterval(timerInterval)
         gameFinished()
         gameTime = defaultGameTime
-    } else if (gameOver == true || noMoreQuestionInThisLevel == true) {
-        gameTime = 0
     }
+}
+
+// ASSIGNING NEEDED VARIABLES
+function assignVariables() {
+    countElement.innerHTML = ""
+    timerElement.innerHTML = ""
+    postgameTextElement.innerHTML = "Horaaay selamat! Anda telah menyelesaikan game ini. Apakah ingin lanjut bermain?"
+    countdownTime = defaultCountdownTime
+    gameTime = defaultGameTime
+    questionThisLevelUnknown = []
+    questionThisLevelAbsolute = []
+    tempAnsweredQuestion = []
+    questionDataUnanswered = []
+    questionDataAnswered = []
+    questionLowerLevelAbsolute = []
+    questionLowerLevelUnknown = []
+    questionForCalibration = []
+    score = 0
+    questionNumber = 1
+    lives = 3
+    calibrationScore = 0
+    userInputValid = false
+    gameOver = false
+    noMoreQuestion = false
 }
 
 // GAME STATE
@@ -135,30 +149,40 @@ function gameStarted() {
 function gameFinished() {
     if (gameOver == true) {
         postgameTextElement.innerHTML = "Game Over :( Nyawa anda habis karena salah saat menjawab soal kalibrasi yang dikeluarkan di waktu yang acak. Apakah ingin bermain lagi?"
-    } else if (noMoreQuestionInThisLevel == true) {
-        postgameTextElement.innerHTML = "Soal telah habis, apakah anda ingin menyelesaikan soal yang ada di level sebelumnya?"
+    } else if (noMoreQuestion == true) {
+        postgameTextElement.innerHTML = "Selamat, anda telah menyelesaikan semua soal untuk level ini dan level sebelumnya!"
     }
     $(".postgame").addClass("enabled")
     $(".game").removeClass("enabled")
     scoreElement.innerHTML = `${score}`
-    if (score > 0 && userInfo != "anonymous@gmail.com") {
+    if (score > 0 && userEmail != "anonymous@gmail.com") {
         storeUserScore()
     }
-    if (userInputValid == true && userInfo != "anonymous@gmail.com") {
+    if (userInputValid == true && userEmail != "anonymous@gmail.com") {
         storeAnsweredQuestion()
     }
 }
 
 function getUserLevel() {
-    userLevel = user != null ? user.level : 1
+    userLevel = userEmail != "anonymous@gmail.com" ? thisUser.level : 1
 }
 
 
 
 // QUESTION GENERATOR
 function showQuestion() {
+    questionAbsolute = questionThisLevelAbsolute
+    questionUnknown = questionThisLevelUnknown
+    if (questionAbsolute.length == 0 && questionUnknown.length == 0) {
+        userLevelElement.innerHTML = "Bonus Stage"
+        questionAbsolute = questionLowerLevelAbsolute
+        questionUnknown = questionLowerLevelUnknown
+    }
     if (questionAbsolute.length != 0 || questionUnknown.length != 0) {
-        if (questionNumber <= 5 || questionNumber % 2 == 1) {
+        if (questionNumber <= 5) {
+            questionArray = questionForCalibration
+        }
+        else if (questionNumber % 2 == 1) {
             questionArray = (questionAbsolute.length > 0) ? questionAbsolute : questionUnknown
         } else if (questionNumber % 2 == 0) {
             questionArray = (questionUnknown.length > 0) ? questionUnknown : questionAbsolute
@@ -167,9 +191,9 @@ function showQuestion() {
         questionNumberElement.innerHTML = `Question ${questionNumber}`
         questionElement.innerHTML = questionArray[currentQuestionIndex].question
     } else {
-        noMoreQuestionInThisLevel = true
-        gameFinished()
+        return noMoreQuestion = true;
     }
+    console.log('Level : ' + questionArray[currentQuestionIndex].level+', Type : '+questionArray[currentQuestionIndex].question_type)
 }
 
 function nextQuestion() {
@@ -189,11 +213,14 @@ function answerQuestion() {
     question_id = questionArray[currentQuestionIndex].id
     if (questionNumber == 6) {
         checkCalibration()
+        console.log('user input valid : '+userInputValid)
     }
     if (userInputValid == true) {
         storeUserInput(question_id, value)
     }
-    tempAnsweredQuestion.push(question_id)
+    if (tempAnsweredQuestion.includes(question_id) == false && questionNumber > 5) {
+        tempAnsweredQuestion.push(question_id)
+    }
     countScore(value, question_id)
     questionArray.splice(currentQuestionIndex, 1)
     nextQuestion()
@@ -205,33 +232,46 @@ function getRandomIndex(questionArray) {
 }
 
 function getQuestionsForUser() {
-    let questionDataUnanswered = []
-    let questionDataAnswered = []
-    let questionAbsoluteLower = []
-    let questionUnknownLower = []
     for (let i = 0; i < questionData.length; i++) {
         if (tempAnsweredQuestion.includes(questionData[i].id) == false) {
-            questionDataUnanswered.push(questionData[i]);
+            questionDataUnanswered.push(questionData[i])
         } else {
-            questionDataAnswered.push(questionData[i].id)
+            questionDataAnswered.push(questionData[i])
         }
     }
     for (let i = 0; i < questionDataUnanswered.length; i++) {
         if (questionDataUnanswered[i].level == userLevel) {
             if (questionDataUnanswered[i].question_type == "absolute_answer") {
-                questionAbsolute.push(questionDataUnanswered[i])
+                questionThisLevelAbsolute.push(questionDataUnanswered[i])
             } else {
-                questionUnknown.push(questionDataUnanswered[i])
+                questionThisLevelUnknown.push(questionDataUnanswered[i])
             }
+
         } else if (questionDataUnanswered[i].level < userLevel) {
             if (questionDataUnanswered[i].question_type == "absolute_answer") {
-                questionAbsoluteLower.push(questionDataUnanswered[i])
+                questionLowerLevelAbsolute.push(questionDataUnanswered[i])
             } else {
-                questionUnknownLower.push(questionDataUnanswered[i])
+                questionLowerLevelUnknown.push(questionDataUnanswered[i])
             }
         }
     }
-    console.log(questionAbsoluteLower)
+    for (let i = 0; i < questionData.length; i++) {
+        if (questionData[i].level == userLevel) {
+            if (questionData[i].question_type == "absolute_answer") {
+                questionForCalibration.push(questionData[i])
+            }
+        }
+    }
+    console.log('This level unknwon')
+    console.log(questionThisLevelUnknown)
+    console.log('This level absolute')
+    console.log(questionThisLevelAbsolute)
+    console.log('Lower level unknwon')
+    console.log(questionLowerLevelUnknown)
+    console.log('Lower level absolute')
+    console.log(questionLowerLevelAbsolute)
+    console.log('Calibration Question')
+    console.log(questionForCalibration)
 }
 
 // to check if user answer the questions seriously
@@ -246,8 +286,7 @@ function countLives() {
             lives--
         }
         if (lives == 0) {
-            gameOver = true
-            gameFinished()
+            return gameOver = true
         }
     }
 }
@@ -260,7 +299,7 @@ function countScore(value) {
                 calibrationScore += 1
             }
         } else {
-            countLives()
+            // countLives()
         }
     } else {
         score += 5
@@ -276,8 +315,9 @@ function storeUserInput(question_id, value) {
             _token: CSRF_TOKEN,
             question_id: question_id,
             value: value,
-            username: userInfo,
+            username: userEmail,
         },
+        success: console.log('Input stored')
     })
 }
 
@@ -288,9 +328,10 @@ function storeUserScore() {
         data: {
             _token: CSRF_TOKEN,
             score: score,
-            username: userInfo,
+            username: userEmail,
             total_answers: questionNumber,
         },
+        success: console.log('Score is stored')
     })
 }
 
@@ -300,9 +341,10 @@ function storeAnsweredQuestion() {
         type: 'POST',
         data: {
             _token: CSRF_TOKEN,
-            email: userInfo,
+            email: userEmail,
             answered_questions: JSON.stringify(tempAnsweredQuestion),
         },
+        success: console.log("Answered is question stored")
     })
 }
 
@@ -312,14 +354,22 @@ function fetchUserData() {
         type: 'GET',
         data: {
             _token: CSRF_TOKEN,
-            email: userInfo,
+            email: userEmail,
         },
         success: function (response) {
-            try {
-                tempAnsweredQuestion = JSON.parse(response[0].answered_questions)
-            } catch {
-                tempAnsweredQuestion = []
+            if (response != []) {
+                thisUser = response[0]
+                if (thisUser != null) {
+                    try {
+                        tempAnsweredQuestion = JSON.parse(response[0].answered_questions)
+                    } catch {
+                        tempAnsweredQuestion = []
+                    }
+                } else {
+                    tempAnsweredQuestion = []
+                }
             }
+            console.log(tempAnsweredQuestion)
         }
     })
 }
