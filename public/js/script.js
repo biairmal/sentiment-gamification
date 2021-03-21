@@ -8,8 +8,8 @@ const userLevelElement = document.getElementById('level')
 const postgameTextElement = document.getElementById('postgame_text')
 
 // GAME VARIABLES
-const defaultCountdownTime = 0
-const defaultGameTime = 2
+const defaultCountdownTime = 3
+const defaultGameTime = 60
 let countdownTime, gameTime, score, questionNumber, lives // int
 let gameOver // bool
 
