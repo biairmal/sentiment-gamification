@@ -67,9 +67,9 @@ class GameController extends Controller
     }
 
     // update user level based on total points
-    public function updateUserLevel($person)
+    public function updateUserLevel(Request $request)
     {
-        $user = User::where('email', $person)->first();
+        $user = User::where('email', $request->email)->first();
 
         $i = 0;
         $level = 0;
@@ -83,10 +83,14 @@ class GameController extends Controller
                 $level = $i + 1;
             }
         }
+        if ($level > $this->maxLevel) {
+            $level = 3;
+        }
 
         if ($this->maxLevel != $user->level && $level <= $this->maxLevel) {
-            User::where('email', $person)->update(['level' => $level]);
+            User::where('email', $request->email)->update(['level' => $level]);
         }
+        return response()->json($level);
     }
 
     // storing user game history
@@ -105,7 +109,6 @@ class GameController extends Controller
             $user->increment('total_points', $request->score);
 
             if($request->email)
-            $this->updateUserLevel($request->email);
             return response()->json($score);
         } catch (Exception $e) {
             DB::rollback();

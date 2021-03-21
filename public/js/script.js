@@ -9,7 +9,7 @@ const postgameTextElement = document.getElementById('postgame_text')
 
 // GAME VARIABLES
 const defaultCountdownTime = 0
-const defaultGameTime = 60
+const defaultGameTime = 2
 let countdownTime, gameTime, score, questionNumber, lives // int
 let gameOver // bool
 
@@ -155,8 +155,12 @@ function gameFinished() {
     $(".postgame").addClass("enabled")
     $(".game").removeClass("enabled")
     scoreElement.innerHTML = `${score}`
-    if (score > 0 && userEmail != "anonymous@gmail.com") {
-        storeUserScore()
+    if (userEmail != "anonymous@gmail.com") {
+        updateUserLevel()
+        console.log('masuk')
+        if (score > 0) {
+            storeUserScore()
+        }
     }
     if (userInputValid == true && userEmail != "anonymous@gmail.com") {
         storeAnsweredQuestion()
@@ -371,5 +375,17 @@ function fetchUserData() {
             }
             console.log(tempAnsweredQuestion)
         }
+    })
+}
+
+function updateUserLevel() {
+    $.ajax({
+        url: '/update-level',
+        type: 'POST',
+        data: {
+            _token: CSRF_TOKEN,
+            email: userEmail,
+        },
+        success: console.log("User level has been updated.")
     })
 }

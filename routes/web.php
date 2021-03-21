@@ -24,6 +24,7 @@ Route::get('/stats/{email}',[GameController::class,'userStats'])->name('stats');
 // ==== ajax ====
 Route::get('/question', 'GameController@index');
 Route::get('/fetch-user', [GameController::class,'getUserData']);
+Route::post('/update-level', [GameController::class,'updateUserLevel']);
 Route::post('/submit-answered-questions', [GameController::class,'submitAnsweredQuestions']);
 Route::post('/answer', [GameController::class,'submitAnswer'])->name('answer.add');
 Route::post('/submit-score', [GameController::class,'submitScore'])->name('score.add');
