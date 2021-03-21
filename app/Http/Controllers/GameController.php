@@ -25,7 +25,7 @@ class GameController extends Controller
 
     public function userStats($user)
     {
-        $recentMatches = Scores::where('username', $user)->orderBy('created_at','DESC')->get();
+        $recentMatches = Scores::where('email', $user)->orderBy('created_at','DESC')->get();
         // isi nama filenya dalem view
         return view('profile', compact('recentMatches'));
     }
@@ -43,7 +43,7 @@ class GameController extends Controller
         try {
             $answer = new Answer();
             $answer->question_id = $request->question_id;
-            $answer->username = $request->username;
+            $answer->email = $request->email;
             $answer->value = $request->value;
             $answer->save();
             DB::commit();
@@ -95,17 +95,17 @@ class GameController extends Controller
         DB::beginTransaction();
         try {
             $score = new Scores();
-            $score->username = $request->username;
+            $score->email = $request->email;
             $score->score = $request->score;
             $score->total_answers = $request->total_answers;
             $score->save();
             DB::commit();
 
-            $user = User::where('email', $request->username);
+            $user = User::where('email', $request->email);
             $user->increment('total_points', $request->score);
 
-            if($request->username)
-            $this->updateUserLevel($request->username);
+            if($request->email)
+            $this->updateUserLevel($request->email);
             return response()->json($score);
         } catch (Exception $e) {
             DB::rollback();

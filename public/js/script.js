@@ -299,7 +299,7 @@ function countScore(value) {
                 calibrationScore += 1
             }
         } else {
-            // countLives()
+            countLives()
         }
     } else {
         score += 5
@@ -315,9 +315,9 @@ function storeUserInput(question_id, value) {
             _token: CSRF_TOKEN,
             question_id: question_id,
             value: value,
-            username: userEmail,
+            email: userEmail,
         },
-        success: console.log('Input stored')
+        success: console.log('Your input has been stored')
     })
 }
 
@@ -328,10 +328,10 @@ function storeUserScore() {
         data: {
             _token: CSRF_TOKEN,
             score: score,
-            username: userEmail,
+            email: userEmail,
             total_answers: questionNumber,
         },
-        success: console.log('Score is stored')
+        success: console.log('Your score has been stored')
     })
 }
 
@@ -344,7 +344,7 @@ function storeAnsweredQuestion() {
             email: userEmail,
             answered_questions: JSON.stringify(tempAnsweredQuestion),
         },
-        success: console.log("Answered is question stored")
+        success: console.log("Answered questions have been stored.")
     })
 }
 
@@ -360,9 +360,9 @@ function fetchUserData() {
             if (response != []) {
                 thisUser = response[0]
                 if (thisUser != null) {
-                    try {
+                    if (thisUser.answered_questions != null) {
                         tempAnsweredQuestion = JSON.parse(response[0].answered_questions)
-                    } catch {
+                    } else {
                         tempAnsweredQuestion = []
                     }
                 } else {

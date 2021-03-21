@@ -15,9 +15,7 @@ class CreateScoresTable extends Migration
     {
         Schema::create('scores', function (Blueprint $table) {
             $table->id();
-            $table->string('username');
-            // $table->string('username')->index();
-            // $table->foreign('username')->references('username')->on('users');
+            $table->string('email');
             $table->bigInteger('score');
             $table->bigInteger('total_answers');
             $table->timestamps();
