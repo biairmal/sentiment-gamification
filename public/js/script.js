@@ -61,6 +61,8 @@ function togglePopupBox() {
 }
 
 function clickStart() {
+    fetchUserData()
+    assignVariables()
     $(".pregame").addClass("disabled")
     $("#countdown").addClass("enabled")
     countInterval = setInterval(countdown, 1000)
@@ -133,8 +135,6 @@ function assignVariables() {
 
 // GAME STATE
 function gameStarted() {
-    fetchUserData()
-    assignVariables()
     getUserLevel()
     getQuestionsForUser()
     timerInterval = setInterval(timer, 1000)
